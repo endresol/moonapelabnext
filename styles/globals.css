@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    height: 100%;
+    background-color: white;
+  }
+
+  body {
+    height: 100%;
+  }
+}
+
+.image-map__map:hover {
+  box-shadow: -8px -8px 40px rgb(255 255 255 / 15%), 8px 8px 40px rgb(255 255 255 / 15%);
+}
+
+.malbutton span:first-child{
+  transform: translateX(-101%);
+  transition: transform .3s ease-in
+}
+.malbutton:hover span{
+  transform: translateX(0)
+}
+.malbutton:before {
+  content: '';
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  border-left: 2px #FFFFFF solid;
+  border-top: 2px #FFFFFF solid;
+  border-bottom: 2px #FFFFFF solid;
+  z-index: 10;
+}
+
+.malbutton:after {
+  content: '';
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  border-right: 2px #FFFFFF solid;
+  border-top: 2px #FFFFFF solid;
+  border-bottom: 2px #FFFFFF solid;
+}
