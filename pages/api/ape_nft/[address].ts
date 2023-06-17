@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const prisma = new PrismaClient();
   if (req.method === "GET") {
-    const address = req.query.address;
+    const address = req.query.address[0];
     
     const nfts = await prisma.nfts_apenft.findMany({
       select: {
