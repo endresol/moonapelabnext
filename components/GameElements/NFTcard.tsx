@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from "next/image";
 
-import { getMutantMadPrice } from '../../helpers/raritynaming';
+import { getMutantMadPrice, getLootTypeNameFromIndex } from '../../helpers/raritynaming';
 
 interface NFTcardProps {
   nftid: number; // Array of image URLs
@@ -9,7 +9,7 @@ interface NFTcardProps {
   onClick: (nft: number) => void;
   imagepath: string;
   withPrice?: boolean | null;
-  withLoot?: number | null;
+  withLoot?: number | undefined;
 }
 
 
@@ -22,7 +22,7 @@ export const NFTcard: React.FC<NFTcardProps> = ({nftid,  selected, onClick, imag
           }`}
         onClick={() => onClick(nftid)}
       >
-        <Image className="w-full h-auto rounded-xl" src={`${imagepath}/${nftid}.png`} width={100} height={100} alt={`Moon Ape # ${nftid}`} />
+        <Image className="w-full h-auto rounded-xl" src={`${imagepath}/${nftid}.png`} width={400} height={100} alt={`Moon Ape # ${nftid}`} />
         {selected && (
           <div className="absolute top-0 right-0 mr-2 mt-2 bg-blue-500 text-white rounded-full w-6 h-6">
             <svg
@@ -40,16 +40,18 @@ export const NFTcard: React.FC<NFTcardProps> = ({nftid,  selected, onClick, imag
               />
             </svg>
           </div>
+        )}  
+
+        { withLoot !== null && withLoot !== 0 && (
+          <Image src={`https://storage.moonapelab.io/static/loots/thumbs/${getLootTypeNameFromIndex(withLoot)}.png`} width={200} height={200} alt={`staked with ${getLootTypeNameFromIndex(withLoot)} loot`} className="absolute bottom-0 right-0 w-16 h-auto border-2 rounded-xl border-violet-600" />
         )}
+
         {withPrice && (
         <div className="absolute bottom-0 right-0 transform rotate-[-45deg] bg-white text-black px-2 py-1">
           {getMutantMadPrice(nftid)} $MAD
-        </div>
+        </div>  
         )}
 
-        {withLoot !== 0 && (
-          <div> loot {withLoot}</div>
-        )}
       </div>
   )
 }

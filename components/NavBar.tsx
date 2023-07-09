@@ -49,28 +49,11 @@ export function NavBar() {
         className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
         data-te-navbar-nav-ref>
         <li className="lg:pr-2" data-te-nav-item-ref>
-          <a
+          <Link
             className="text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
             href="#"
             data-te-nav-link-ref
-            >Dashboard</a
-          >
-        </li>
-        <li className="lg:pr-2" data-te-nav-item-ref>
-          <a
-            className="text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            href="#"
-            data-te-nav-link-ref
-            >Team</a
-          >
-        </li>
-        <li className="lg:pr-2" data-te-nav-item-ref>
-          <a
-            className="text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            href="#"
-            data-te-nav-link-ref
-            >Projects</a
-          >
+            >WEBSITE</Link>
         </li>
       </ul>
       {/* <!-- Left links --> */}

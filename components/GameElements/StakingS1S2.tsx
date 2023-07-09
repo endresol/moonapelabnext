@@ -9,6 +9,7 @@ import { extractIntegers } from "../../helpers/bignum";
 import { removeDuplicateApes } from "../../helpers/nfts";
 
 import { NftList } from ".";
+import { UnstakePets, StakeMutants } from '.';
 
 interface Action {
   label: string; // Label for the action
@@ -24,17 +25,43 @@ export function StakingS1S2() {
   const [stakedS2Mutants, setStakedS2Mutants] = useState<number[] | null>(null);
   const [malGenesis, setMalGenesis] = useState<number[] | null>(null);
 
-  const handleUnstakeS1Action = (nfts: number[]) => {
-    console.log("Unstake season 1", nfts);
+
+  // BUTTON ACTIONS
+  const handleUnstakeS1Action = async (nfts: number[]) => {
+    if (!nfts || nfts.length <= 0) {
+      console.log("no apes selected");
+      return;
+    };
+
+    console.log("got apes and start unstaking");
+    
+    const transaction = await moonStakingContract.unstake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, nfts);
+    console.log("transaction started:", transaction);
+    
+    await transaction.wait();
+
+    console.log(transaction);
   };
 
+  const handleUnstakeAllLoot = async (nfts: number[]) => {
+    console.log("start unstaking loot");
+    
+    const transaction = await moonStakingContract.removeLootFromStakedApes(nfts);
+    console.log("transaction started:", transaction);
+    
+    await transaction.wait();
+
+    console.log(transaction);  };
   
-  const handleUnstakeAllLoot = (nfts: number[]) => {
-    console.log("Unstake all loot", nfts);
-  };
-  
-  const handleAction2 = (nfts: number[]) => {
-    console.log("action 2", nfts);
+  const handleClaimAction = async (nfts: number[]) => {
+    console.log("start claim");
+    
+    const transaction = await moonStakingContractS2.updateAccumulatedAmount(address);
+    console.log("transaction started:", transaction);
+    
+    await transaction.wait();
+
+    console.log(transaction);
   };
 
   const handleUnstakeS2Action = async (nfts: number[]) => {
@@ -69,23 +96,41 @@ export function StakingS1S2() {
     
   };
 
+  const handleUnstakeMutantsAction = async (nfts: number[]) => {
+    if (!nfts || nfts.length <= 0) {
+      console.log("no mutants selected");
+      return;
+    };
+
+    console.log("got mutants and start unstaking");
+    
+    const transaction = await moonStakingContractS2.unstake721(process.env.NEXT_PUBLIC_BREEDING_CONTRACT, nfts);
+    console.log("transaction started:", transaction);
+    
+    await transaction.wait();
+
+    console.log(transaction);
+    
+  };
+
+  // BUTTONS
   const OGseason1Actions: Action[] = [
     { label: 'Unstake', onClick: handleUnstakeS1Action },
-    { label: 'Unstake Loot', onClick: handleUnstakeAllLoot },
-    { label: 'Claim MALv2', onClick: handleAction2 },
+    { label: 'Unstake ALL Loot', onClick: handleUnstakeAllLoot },
+    { label: 'Claim MALv2', onClick: handleClaimAction },
   ];
 
-  const actions2: Action[] = [
-    { label: 'Unstake', onClick: handleUnstakeS1Action },
-    { label: 'Stake', onClick: handleAction2 },
+  const OGseason2UnstakeActions: Action[] = [
+    { label: 'Unstake', onClick: handleUnstakeS2Action },
+    { label: 'Claim MALv2', onClick: handleClaimAction },
+  ];
+
+  const MutantsUnstakeActions: Action[] = [
+    { label: 'Unstake', onClick: handleUnstakeMutantsAction },
   ];
 
   const OGseason2StakeActions: Action[] = [
     { label: 'Stake', onClick: handleStakeS2Action },
-  ];
-  const OGseason2UnstakeActions: Action[] = [
-    { label: 'Unstake', onClick: handleUnstakeS2Action },
-    { label: 'Claim MALv2', onClick: handleUnstakeS2Action },
   ];
   
   const moonStakingContract = useMoonStakingContract();
@@ -136,15 +181,18 @@ export function StakingS1S2() {
 
   return (
     <>
+    {!address && <div>Connect Wallet</div> }
     {isLoading && <div>Loading</div> }
     {!isLoading && (
       <>
       <div>
         <NftList nftlist={stakedS1OG} title="Season 1 Staked Moon Apes" withLoot={stakedLoot} imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason1Actions} />
         <NftList nftlist={stakedS2OG} title="Season 2 Staked Moon Apes" imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason2UnstakeActions} />
-        <NftList nftlist={stakedS2Mutants} title="Staked Mutants" imagepath="https://storage.moonapelab.io/mutants_images/thumbs" actions={actions2} />
-        <NftList nftlist={malGenesis} title="Unstaked Moon Apes" imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason2StakeActions} />
-      </div>  
+        <NftList nftlist={stakedS2Mutants} title="Staked Mutants" imagepath="https://storage.moonapelab.io/mutants_images/thumbs" actions={MutantsUnstakeActions} />
+        <UnstakePets />
+        <NftList nftlist={malGenesis} title="My (unstaked) Moon Apes" imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason2StakeActions} />
+        <StakeMutants />
+      </div>
       </>
     )}  
     </>

@@ -9,7 +9,8 @@ export { BurnPets } from "./BurnPets";
 export { BurnLoot } from "./BurnLoot";
 export { SellMutants} from "./SellMutants";
 export { TaxClaim } from "./TaxClaim";
-
+export { StakeMutants } from "./StakeMutants"; 
+export { UnstakePets } from "./UnstakePets";
  
 
  

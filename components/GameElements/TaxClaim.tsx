@@ -57,7 +57,7 @@ export const TaxClaim: React.FC = ({}: Props) => {
         <h3>CLAIM TAX & TREASURY REWARD</h3>
         <div>Here you can claim rewards accumulated from Tax distribution and from Treasury daily reward.</div>
         <div>Claimable MAL: {taxToClaim ? Math.floor(+ethers.utils.formatEther(taxToClaim)) : "0"} </div>
-        <MalButton onClickHandler={handleClaimAction}>
+        <MalButton onClick={handleClaimAction}>
           Click
         </MalButton>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getLootType } from '../../helpers/raritynaming';
 import { NFTcard } from './NFTcard';
+import { MalButton } from '../Layout';
 
 interface NFTListProps {
   nftlist: number[]; // Array of image URLs
@@ -27,9 +28,7 @@ export const NftList: React.FC<NFTListProps> = ({ nftlist, title, imagepath, act
       setSelectedImages([...selectedImages, imageId]);
     }
   };
-  
-  console.log("loot?", withLoot);
-  
+
   return (
     <>
       <h3 className="text-xl font-bold mb-4">{title}</h3>
@@ -40,11 +39,10 @@ export const NftList: React.FC<NFTListProps> = ({ nftlist, title, imagepath, act
       </div>
       <div>
         {actions.map((action, actionIndex) => (
-          <button
-            className="mt-4 mr-10 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          <MalButton
             key={actionIndex} onClick={() => action.onClick(selectedImages)}>
               {action.label}
-            </button>
+            </MalButton>
           ))}
       </div>
     </>

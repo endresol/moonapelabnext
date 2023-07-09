@@ -6,6 +6,7 @@ import { extractIntegers } from '../../helpers/bignum';
 import useMoonPetsContract from '../../hooks/useMoonPetsContract';
 import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { getPetRarityName, getPetMADexchange} from "./../../helpers";
+import { MalButton } from '../Layout';
 
 export const BurnPets: React.FC = () => {
   const { address } = useWeb3Context();
@@ -119,21 +120,19 @@ export const BurnPets: React.FC = () => {
       {!isLoading && (
       <>
         <div>Burn Pets</div>
-        <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+        <div className="relative p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {myPets && myPets.map((pet, index) => (
           <div key={index} className={`rounded-xl overflow-hidden shadow-lg border-4 ${burnCounter[index] > 0 ? ("border-white") : ("border-black")}`}>
           <div className="relative">
             <Image src={`https://storage.moonapelab.io/static/pets/thumbs/${index}.png`} alt={`Pets type ${index}: ${pet}`} width={150} height={150} className="w-full"/>
             <span className="sr-only">Notifications</span>
             <div className="absolute inline-flex items-center justify-center w-10 h-10 text-s font-bold text-white bg-red-500 border-2 border-white rounded-full top-3 right-3 dark:border-gray-900">{pet}</div>
+            <div className="absolute bottom-5 right-0 transform rotate-[-45deg] bg-white text-black px-2 py-1">
+              { getPetMADexchange(index)} $MAD
+            </div>          
           </div>
-          <div className="px-6 py-4">
-            <div className="font-bold text-l mb-2">{getPetRarityName(index)} Moon Pet</div>
-            <p className="text-gray-700 text-base">
-              Burn for {getPetMADexchange(index)} $MAD
-            </p>
-          </div>
-
+          <div className="font-bold text-l mb-2">{getPetRarityName(index)} Moon Pet</div>
+          
           <div> 
             <div>
               <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
@@ -151,7 +150,7 @@ export const BurnPets: React.FC = () => {
         ))}
         </div>
         <div>
-          <button onClick={handleBurnClick} className="mt-4 mr-10 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Burn pet for {totalMAD} MAD </button>
+          <MalButton onClick={handleBurnClick}>Burn pet for {totalMAD} MAD </MalButton>
         </div>
       </>
       )}

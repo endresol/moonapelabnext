@@ -6,6 +6,8 @@ import { extractIntegers } from '../../helpers/bignum';
 import useMoonLootContract from '../../hooks/useMoonLootContract';
 import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { getLootTypeNameFromIndex, getLootType, getLootMADexchangeFromIndex } from "./../../helpers";
+import { MalButton } from "../Layout";
+
 
 export const BurnLoot: React.FC = () => {
   const { address } = useWeb3Context();
@@ -94,18 +96,17 @@ export const BurnLoot: React.FC = () => {
           onClick={() => handleToggleLootSelect(loot)}>
             <div className="relative">
               <Image src={`https://storage.moonapelab.io/static/loots/thumbs/${getLootTypeNameFromIndex(loot)}.png`} alt={`${getLootTypeNameFromIndex(loot)} loot # ${loot}: ${loot}`} width={150} height={150} className="w-full"/>
+              <div className="absolute bottom-5 right-0 transform rotate-[-45deg] bg-white text-black px-2 py-1">
+              { getLootMADexchangeFromIndex(loot)} $MAD
             </div>
-            <div className="px-6 py-4">
-              <div className="font-bold text-l mb-2 capitalize ">{getLootTypeNameFromIndex(loot)} Moon Loot</div>
-              <p className="text-gray-700 text-base">
-                Burn for {getLootMADexchangeFromIndex(loot)} $MAD
-              </p>
             </div>
+            <div className="font-bold text-l mb-2 capitalize ">{getLootTypeNameFromIndex(loot)} Moon Loot</div>
+
           </div>
         ))}
         </div>
         <div>
-          <button onClick={handleBurnClick} className="mt-4 mr-10 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Burn loot for {totalMAD} MAD </button>
+          <MalButton onClick={handleBurnClick}>Burn loot for {totalMAD} MAD </MalButton>
         </div>
       </>
       )}
