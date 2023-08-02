@@ -16,8 +16,9 @@ export const GameMap2: React.FC = () => {
     name: "MoonApeLabMap",
     areas: [
       { id: "bank", shape: "circle", coords: [400, 240, 75]},
-      { id: "madexchange", shape: "circle", coords: [750, 240, 85]},
+      { id: "madexchange", shape: "circle", coords: [780, 230, 80]},
       { id: "staking", shape: "circle", coords: [450, 520, 75] },
+      { id: "ticketbooth", shape: "circle", coords: [595, 335, 60] },
     ]
   };
 

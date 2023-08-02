@@ -244,7 +244,7 @@ model members_withdrawal {
 
 model nfts_apenft {
   id     BigInt  @id @default(autoincrement())
-  nft_id Int
+  nft_id Int     @unique
   owner  String? @db.VarChar(150)
 }
 
@@ -375,4 +375,21 @@ model pages_telegramchatid {
   chat_id    String  @db.VarChar(100)
   get_errors Boolean
   name       String  @db.VarChar(100)
+}
+
+model mal_raffle {
+  id        BigInt                @id @default(autoincrement())
+  title     String                @db.VarChar(200)
+  open      Boolean
+  price     Int
+  purchases mal_raffle_purchase[] // Add this relation to link to raffle_purchase
+}
+
+model mal_raffle_purchase {
+  id          BigInt     @id @default(autoincrement())
+  address     String     @db.VarChar(150)
+  quantity    Int
+  raffle_id   BigInt
+  transaction String     @db.VarChar(150)
+  raffle      mal_raffle @relation(fields: [raffle_id], references: [id]) // Add this relation to link to raffle
 }

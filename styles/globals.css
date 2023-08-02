@@ -48,3 +48,29 @@
   border-top: 2px #FFFFFF solid;
   border-bottom: 2px #FFFFFF solid;
 }
+
+.malbutton:hover {
+  color: #FFFFFF;
+}
+
+@keyframes loading-dot-animation {
+  0% {
+    background-color: gray;
+  }
+  25% {
+    background-color: white;
+  }
+  50% {
+    background-color: white;
+  }
+  75% {
+    background-color: white;
+  }
+  100% {
+    background-color: gray;
+  }
+}
+
+.animate-loading-dot {
+  animation: loading-dot-animation 2s infinite;
+}

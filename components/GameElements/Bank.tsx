@@ -6,6 +6,7 @@ import useMoonStakingContract from "../../hooks/useMoonStakingContract";
 import useMoonStakingS2Contract from "../../hooks/useMoonStakingS2Contract";
 import useMALerc20Contract from "../../hooks/useMalV1Contract";
 import useMADTokenContract from "../../hooks/useMADTokenContract";
+import { LoadingScreen } from "../Layout";
 
 export function Bank() {
   const { address } = useWeb3Context();
@@ -61,9 +62,9 @@ export function Bank() {
   
   return (
       <>
-      {isLoading && <div>isLoading</div> }
+      {isLoading && <LoadingScreen height="h-36"/> }
       {!isLoading && (      
-        <>
+        <div className="mt-10 mb-10">
           <div className="flex flex-row">
             <div className="basis-1/2">Total Daily MALv1 reward: </div>
             <div className="basis-1/2">{dailyYield ? Math.floor(+ethers.utils.formatEther(dailyYield)) : "loading"} </div>
@@ -80,7 +81,7 @@ export function Bank() {
             <div className="basis-1/2">MAD Balance: </div>
             <div className="basis-1/2">{madBalance ? ethers.utils.formatEther(madBalance) : "loading"} </div>
           </div>
-        </>
+        </div>
     )}    
     </>
   )

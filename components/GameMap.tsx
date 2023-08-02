@@ -34,7 +34,16 @@ export function GameMap () {
       height: '15%',
       onMouseOver: () => console.log('map onMouseOver stake'),
       page: "/madexchange"
+    },
+    {
+      left: '50%',
+      top: '36%',
+      width: '16%',
+      height: '15%',
+      onMouseOver: () => console.log('map onMouseOver stake'),
+      page: "/ticketbooth"
     }
+
   ];
 
   const onMapClick = (area, index) => {

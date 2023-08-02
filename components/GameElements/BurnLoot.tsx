@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { useWeb3Context } from "../../context";
-import { extractIntegers } from '../../helpers/bignum';
 import useMoonLootContract from '../../hooks/useMoonLootContract';
 import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { getLootTypeNameFromIndex, getLootType, getLootMADexchangeFromIndex } from "./../../helpers";

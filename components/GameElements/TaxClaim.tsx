@@ -53,15 +53,15 @@ export const TaxClaim: React.FC = ({}: Props) => {
     <>
        {isLoading && <SectionLoading /> }
        {!isLoading && (  
-      <>
-        <h3>CLAIM TAX & TREASURY REWARD</h3>
-        <div>Here you can claim rewards accumulated from Tax distribution and from Treasury daily reward.</div>
-        <div>Claimable MAL: {taxToClaim ? Math.floor(+ethers.utils.formatEther(taxToClaim)) : "0"} </div>
-        <MalButton onClick={handleClaimAction}>
-          Click
+      <div className="mt-10 mb-10 text-center">
+        <h3 className="text-xl font-bold text-center mb-6">CLAIM TAX & TREASURY REWARD</h3>
+        <div className="mb-6">Here you can claim rewards accumulated from Tax distribution and from Treasury daily reward.</div>
+        <div className="mb-10">Claimable MAL: {taxToClaim ? Math.floor(+ethers.utils.formatEther(taxToClaim)) : "0"} </div>
+        <MalButton onClick={handleClaimAction} >
+          Claim Tax
         </MalButton>
 
-      </>
+      </div>
        )}
     </>
   )

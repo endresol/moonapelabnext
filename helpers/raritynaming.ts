@@ -24,6 +24,9 @@ export function getLootTypeName(type:number): string {
 }
 
 export function getLootTypeNameFromIndex(index:number) : string {
+  if (index < 1 || index >= all_loot_types.length) {
+    return "unknown";
+  }
   const type = getLootType(index);
   return getLootTypeName(type);
 }

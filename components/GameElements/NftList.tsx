@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { getLootType } from '../../helpers/raritynaming';
-import { NFTcard } from './NFTcard';
+import { NFTcard, ApeCard } from '.';
 import { MalButton } from '../Layout';
 
 interface NFTListProps {
-  nftlist: number[]; // Array of image URLs
-  title: string;
+  nftlist: number[];
   imagepath: string
   actions: Action[];
   withPrice?: boolean;
   withLoot?: number[] | undefined | null;
+  isApe?: boolean;
 }
 
 interface Action {
@@ -17,7 +16,7 @@ interface Action {
   onClick: (nfts: number[]) => void; // Callback function for the action
 }
 
-export const NftList: React.FC<NFTListProps> = ({ nftlist, title, imagepath, actions, withPrice, withLoot }) => {
+export const NftList: React.FC<NFTListProps> = ({ nftlist, imagepath, actions, withPrice, withLoot ,isApe }) => {
   const [selectedImages, setSelectedImages] = useState([]);
 
   const handleImageClick = (imageId) => {
@@ -31,11 +30,14 @@ export const NftList: React.FC<NFTListProps> = ({ nftlist, title, imagepath, act
 
   return (
     <>
-      <h3 className="text-xl font-bold mb-4">{title}</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
-        {nftlist && nftlist.map((og, index) => (
-          <NFTcard nftid={og} key={og.toString()} withPrice={withPrice} withLoot={withLoot ? withLoot[index] : null} imagepath={imagepath} selected={selectedImages.includes(og) ? true : false} onClick={handleImageClick} />
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-5">
+        {nftlist && nftlist.map((og, index) => {
+          if (isApe) {
+            return (<ApeCard nftid={og} key={og.toString()} withPrice={withPrice} withLoot={withLoot ? withLoot[index] : null} imagepath={imagepath} selected={selectedImages.includes(og) ? true : false} onClick={handleImageClick} />)
+          } else {
+            return (<NFTcard nftid={og} key={og.toString()} withPrice={withPrice} withLoot={withLoot ? withLoot[index] : null} imagepath={imagepath} selected={selectedImages.includes(og) ? true : false} onClick={handleImageClick} />)
+          }
+        })}
       </div>
       <div>
         {actions.map((action, actionIndex) => (
