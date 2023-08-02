@@ -60,7 +60,7 @@ export const SellMutants: React.FC = () => {
   return (
     <>
     <div>Sell mutants</div>
-    <NftList title="Muntant" nftlist={myMutants} withPrice={true} imagepath="https://storage.moonapelab.io/mutants_images/thumbs" actions={mutantsActions} />
+    <NftList nftlist={myMutants} withPrice={true} imagepath="https://storage.moonapelab.io/mutants_images/thumbs" actions={mutantsActions} />
     </>
   )
 

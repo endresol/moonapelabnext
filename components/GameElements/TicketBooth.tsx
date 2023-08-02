@@ -138,7 +138,7 @@ export const TicketBooth: React.FC = () => {
       {(!isLoading && myMalv1)  && (
       <>
         <div>Buy Tickets</div>
-        <p>MALv1 Balance: {myMalv1}</p>
+        <p><>MALv1 Balance: {myMalv1} </></p>
         <p>Ticket price: 5000 MALv1</p>
         <p>Max tickets: {maxTickets} </p>
         <p>Your tickets: {ticketsOwned}</p>
