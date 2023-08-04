@@ -31,6 +31,7 @@
     "react-img-mapper": "^1.5.1",
     "react-toastify": "^9.1.1",
     "reactjs-popup": "^2.0.5",
+    "serverless-mysql": "^1.5.5",
     "simple-crypto-js": "^3.0.1",
     "web3": "^1.8.2",
     "web3modal": "^1.9.12"

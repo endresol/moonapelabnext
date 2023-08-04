@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "helpers/db.ts"  ],
   "exclude": [
     "node_modules"
   ]
