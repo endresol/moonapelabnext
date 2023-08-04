@@ -7,22 +7,21 @@ async function handler(req, res) {
   try {
     console.log("req nom", req.body);
     const result = await excuteQuery({
-      query: "SELECT * FROM nfts_apenft",
+      query: "SELECT owner FROM nfts_apenft limit 1",
       values: [],
     });
     console.log("ttt", result);
+    res.status(200).json({ message: result });
   } catch (error) {
     console.log(error);
   }
-
-  res.status(200).json({ message: "this is it" });
 }
 
-async function main() {
-  // // ... you will write your Prisma Client queries here
-  // const allUsers = await prisma.nfts_apenft.findMany();
-  // console.log(allUsers);
-}
+// async function main() {
+// // ... you will write your Prisma Client queries here
+// const allUsers = await prisma.nfts_apenft.findMany();
+// console.log(allUsers);
+// }
 
 // main()
 //   .then(async () => {
