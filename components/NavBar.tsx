@@ -51,7 +51,7 @@ export function NavBar() {
         <li className="lg:pr-2" data-te-nav-item-ref>
           <Link
             className="text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
-            href="#"
+            href="https://moonapelab.io"
             data-te-nav-link-ref
             >WEBSITE</Link>
         </li>
