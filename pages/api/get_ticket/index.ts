@@ -13,7 +13,7 @@ async function checkEthereumTransaction(
   ticketPrice: number
 ): Promise<boolean> {
   const providerUrl =
-    "https://goerli.infura.io/v3/5354fa25a0434b90a34241d37f45c33d"; // Replace with your Infura project ID
+    "https://mainnet.infura.io/v3/5354fa25a0434b90a34241d37f45c33d"; // Replace with your Infura project ID
   const provider = new ethers.providers.JsonRpcProvider(providerUrl);
 
   try {
