@@ -1,23 +1,32 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import excuteQuery from "../../../helpers/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log("getting data:", req.query.address);
 
-  const prisma = new PrismaClient();
+  // const prisma = new PrismaClient();
   if (req.method === "GET") {
     const address = req.query.address;
 
-    const tickets = await prisma.mal_raffle_purchase.aggregate({
-      _sum: {
-        quantity: true,
-      },
-      where: {
-        address: address as string,
-      },
+    // const tickets = await prisma.mal_raffle_purchase.aggregate({
+    //   _sum: {
+    //     quantity: true,
+    //   },
+    //   where: {
+    //     address: address as string,
+    //   },
+    // });
+
+    const result = await excuteQuery({
+      query:
+        "select sum(quantity) as mytickets from maldev2.mal_raffle_purchase where address = ?",
+      values: [req.query.address],
     });
 
-    res.status(200).json({ mytickets: tickets._sum.quantity });
+    console.log("ttt", result[0]);
+
+    res.status(200).json({ mytickets: result[0].mytickets });
   }
 }
 

@@ -1,22 +1,20 @@
 // db.js
-import mysql from "serverless-mysql";
+import mysql from "mysql2/promise";
 
-const db = mysql({
-  config: {
+export default async function excuteQuery({ query, values }) {
+  const db = await mysql.createConnection({
     host: process.env.MYSQL_HOST,
     port: parseInt(process.env.MYSQL_PORT),
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-  },
-});
+  });
 
-export default async function excuteQuery({ query, values }) {
   try {
-    const results = await db.query(query, values);
-    console.log("db: ", results);
+    const [rows, fields] = await db.execute(query, values);
+    console.log("db: ", rows);
     await db.end();
-    return results;
+    return rows;
   } catch (error) {
     return { error };
   }

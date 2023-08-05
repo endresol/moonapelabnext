@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import { ethers, BigNumber } from "ethers";
+import excuteQuery from "../../../helpers/db";
 
 import ABI from "../../../abis/MALv1-ERC20-ABI.json";
 
@@ -57,7 +58,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const prisma = new PrismaClient();
+  // const prisma = new PrismaClient();
 
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
@@ -90,13 +91,19 @@ export default async function handler(
 
   try {
     // Insert data into the database using Prisma
-    const insertTransaction = await prisma.mal_raffle_purchase.create({
-      data: {
-        address,
-        quantity: tickets,
-        raffle_id: 1,
-        transaction: transaction,
-      },
+    // const insertTransaction = await prisma.mal_raffle_purchase.create({
+    //   data: {
+    //     address,
+    //     quantity: tickets,
+    //     raffle_id: 1,
+    //     transaction: transaction,
+    //   },
+    // });
+
+    const insertTransaction = await excuteQuery({
+      query:
+        "INSERT INTO mal_raffle_purchase SET address = ?, quantity = ?, raffle_id = ?, transaction = ?",
+      values: [address, tickets, 1, transaction],
     });
 
     console.log("Inserted transaction....:", insertTransaction);
