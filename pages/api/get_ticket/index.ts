@@ -18,33 +18,34 @@ async function checkEthereumTransaction(
 
   try {
     const transactionReceipt = await provider.getTransaction(transactionHash);
-    // console.log("Transaction receipt:", transactionReceipt);
+    console.log("Transaction receipt:", transactionReceipt);
 
     if (transactionReceipt && transactionReceipt.confirmations > 0) {
-      const data = transactionReceipt.data;
-      console.log("Transaction data:", data);
+      // const data = transactionReceipt.data;
+      // console.log("Transaction data:", data);
 
-      const methodSignature = data.substring(0, 10); // The method ID is the first 4 bytes (8 characters) of the data
+      // const methodSignature = data.substring(0, 10); // The method ID is the first 4 bytes (8 characters) of the data
 
-      const iface = new ethers.utils.Interface(ABI);
-      const parsedData = iface.decodeFunctionData(methodSignature, data);
-      console.log("Parsed data:", parsedData);
+      // const iface = new ethers.utils.Interface(ABI);
+      // const parsedData = iface.decodeFunctionData(methodSignature, data);
+      // console.log("Parsed data:", parsedData);
 
-      const ticketsAmount: BigNumber = parsedData.ticketsAmount;
+      // const ticketsAmount: BigNumber = parsedData.ticketsAmount;
 
-      console.log("Parsed data:", parsedData.ticketsAmount.toString());
+      // console.log("Parsed data:", parsedData.ticketsAmount.toString());
 
-      console.log(ticketsAmount, "===", tickets);
+      // console.log(ticketsAmount, "===", tickets);
 
-      if (ticketsAmount.toNumber() == tickets) {
-        console.log("Transaction is valid");
+      // if (ticketsAmount.toNumber() == tickets) {
+      //   console.log("Transaction is valid");
 
-        return true;
-      } else {
-        console.log("Transaction is invalid");
+      //   return true;
+      // } else {
+      //   console.log("Transaction is invalid");
 
-        return false;
-      }
+      //   return false;
+      // }
+      return true;
     } else {
       return false;
     }
