@@ -26,7 +26,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     console.log("ttt", result[0]);
 
-    res.status(200).json({ mytickets: result[0].mytickets });
+    res.status(200).json({ mytickets: result[0] ? result[0].mytickets : 0 });
   }
 }
 
