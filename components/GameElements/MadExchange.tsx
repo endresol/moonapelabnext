@@ -7,7 +7,7 @@ import { SellMutants } from './SellMutants';
 export function MadExchange() {
   return (
     <>
-      <MALheader headline="MadExchange" />
+      <MALheader headline="Mad Exchange" />
       <BurnPets />
       <BurnLoot />
       <SellMutants />

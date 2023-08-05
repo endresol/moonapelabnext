@@ -2,8 +2,11 @@ import React, {useState, useEffect } from 'react';
 
 import { useWeb3Context } from '../../context';
 import useMoonApeMutantContract from '../../hooks/useMoonApeMutantContract';
+import useMoonStakingS2Contract from '../../hooks/useMoonStakingS2Contract';
+
 import { NftList } from '.';
 import { Popup } from "../Layout/Popup";
+import { toast } from 'react-toastify'
 
 
 interface Action {
@@ -14,6 +17,7 @@ interface Action {
 export const StakeMutants: React.FC = () => {
   const { address } = useWeb3Context();
   const mutantContract = useMoonApeMutantContract();
+  const moonStakingS2Contract = useMoonStakingS2Contract();
 
   const [mutants, setMutants] = useState<number[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -24,16 +28,22 @@ export const StakeMutants: React.FC = () => {
     console.log("isApprovedForAll", isApprove);
     if (!isApprove) {
       setIsPopupOpen(true);
+    } else {
+      console.log("stake mutants", nfts);  
+      const transaction = await moonStakingS2Contract.stake721(process.env.NEXT_PUBLIC_BREEDING_CONTRACT, nfts);
+      console.log("transaction started:", transaction);
+      toast.success("Transaction started. " + transaction.hash , { autoClose: 5000 });
     }
-    console.log("stake mutants", nfts);  
   };
 
   const handleApprovalAction = async () => {
     console.log("start approval");
     const transaction = await mutantContract.setApprovalForAll(process.env.NEXT_PUBLIC_MOONSTAKING_S2_CONTRACT, true);
+    
     console.log("transaction started:", transaction);
   
     await transaction.wait();
+    toast.success("Approved", { autoClose: 5000 });
     console.log(transaction);
 
   };

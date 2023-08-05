@@ -12,6 +12,7 @@ import { NftList } from ".";
 import { UnstakePets, StakeMutants } from '.';
 import UnstakeApesS1 from './UnstakeApesS1';
 import { LoadingScreen } from '../Layout';
+import { toast } from 'react-toastify';
 
 interface Action {
   label: string; // Label for the action
@@ -31,58 +32,62 @@ export function StakingS1S2() {
     console.log("start claim");
     
     const transaction = await moonStakingContractS2.updateAccumulatedAmount(address);
-    console.log("transaction started:", transaction);
+    toast.info(() => (<div>Transaction started: <a href={transaction.hash}>{transaction.hash}</a></div>), { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
     
     await transaction.wait();
+    toast.success("Claimed", { autoClose: 5000 });
 
     console.log(transaction);
   };
 
   const handleUnstakeS2Action = async (nfts: number[]) => {
     if (!nfts || nfts.length <= 0) {
-      console.log("no apes selected");
+      toast.error("No apes selected");
       return;
     };
 
     console.log("got apes and start unstaking");
     
     const transaction = await moonStakingContractS2.unstake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, nfts);
-    console.log("transaction started:", transaction);
+    toast.info( `transaction started: <a href="">${transaction.hash}</a>`, { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
     
     await transaction.wait();
-
+    toast.success("Unstaked", { autoClose: 5000 });
     console.log(transaction);
     
   }
 
   const handleStakeS2Action = async (nfts: number[]) => {
     if (!nfts || nfts.length <= 0) {
-      console.log("no apes selected");
+      toast.error("No apes selected");
       return;
     };
 
     console.log("got apes and start staking");
     
     const transaction = await moonStakingContractS2.stake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, nfts);
+    toast.info( `transaction started: <a href="">${transaction.hash}</a>`, { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
     await transaction.wait();
-
+    toast.success("Staked", { autoClose: 5000 });
     console.log(transaction);
     
   };
 
   const handleUnstakeMutantsAction = async (nfts: number[]) => {
     if (!nfts || nfts.length <= 0) {
-      console.log("no mutants selected");
+      toast.error("No mutants selected");
       return;
     };
 
     console.log("got mutants and start unstaking");
     
     const transaction = await moonStakingContractS2.unstake721(process.env.NEXT_PUBLIC_BREEDING_CONTRACT, nfts);
+    toast.info( `transaction started: <a href="">${transaction.hash}</a>`, { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
+
     console.log("transaction started:", transaction);
     
     await transaction.wait();
-
+    toast.success("Unstaked", { autoClose: 5000 });
     console.log(transaction);
     
   };

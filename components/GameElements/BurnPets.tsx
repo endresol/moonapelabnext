@@ -119,7 +119,10 @@ export const BurnPets: React.FC = () => {
       {isLoading && <div>Loading</div>}
       {!isLoading && (
       <>
-        <div>Burn Pets</div>
+        <h2 className="text-2xl">Burn Pets</h2>
+        <p>
+          This is the last use of the pets unless you have a full set of all 8 pets. 
+        </p>
         <div className="relative p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {myPets && myPets.map((pet, index) => (
           <div key={index} className={`rounded-xl overflow-hidden shadow-lg border-4 ${burnCounter[index] > 0 ? ("border-white") : ("border-black")}`}>

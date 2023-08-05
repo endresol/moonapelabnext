@@ -6,6 +6,7 @@ import useMoonLootContract from '../../hooks/useMoonLootContract';
 import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { getLootTypeNameFromIndex, getLootType, getLootMADexchangeFromIndex } from "./../../helpers";
 import { MalButton } from "../Layout";
+import {toast} from 'react-toastify';
 
 
 export const BurnLoot: React.FC = () => {
@@ -23,14 +24,16 @@ export const BurnLoot: React.FC = () => {
     console.log("BURN");
 
     if (totalMAD <= 0) {
-      console.log("no loot selected");
+      toast.error("No loot selected");
       return;
     };
 
     console.log("got loot and start burning",lootToBurn);
     const transaction = await madExchangeContract.burnLootForMad(lootToBurn);
     console.log("transaction started:", transaction);
+    toast.info(() => (<div>Transaction started: <a target="_blank" href={transaction.hash}>{transaction.hash}</a></div>));
     await transaction.wait();
+    toast.success("Transaction completed");
     console.log(transaction);
     
   };
@@ -87,8 +90,11 @@ export const BurnLoot: React.FC = () => {
     <>
       {isLoading && <div>Loading</div>}
       {!isLoading && (
-      <>
-        <div>Burn Loot</div>
+      <div className="mt-10 mb-10">
+        <h2 className="text-2xl">Burn Loot</h2>
+        <p>
+          This is the last use of the loot
+        </p>
         <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {myLoot && myLoot.map((loot) => (
           <div key={loot} className={`rounded-xl overflow-hidden shadow-lg border-4 ${lootToBurn.includes(loot) ? ("border-white") : ("border-black")}`}
@@ -107,7 +113,7 @@ export const BurnLoot: React.FC = () => {
         <div>
           <MalButton onClick={handleBurnClick}>Burn loot for {totalMAD} MAD </MalButton>
         </div>
-      </>
+      </div>
       )}
     </>
 
