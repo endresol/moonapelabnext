@@ -51,7 +51,7 @@ export const TicketBooth: React.FC = () => {
 
     const ticketsCost = count * ticketPrice;
 
-    const transaction = await malv1Contract.spendMAL(address, ethers.utils.parseEther(ticketsCost.toString()));
+    const transaction = await malv1Contract.purchaseRoyaleTickets(count);
     console.log("transaction started:", transaction.hash);
     setBurnTransaction(transaction.hash);
     

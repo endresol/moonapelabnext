@@ -22,21 +22,21 @@ async function checkEthereumTransaction(
 
     if (transactionReceipt && transactionReceipt.confirmations > 0) {
       const data = transactionReceipt.data;
+      console.log("Transaction data:", data);
+
       const methodSignature = data.substring(0, 10); // The method ID is the first 4 bytes (8 characters) of the data
 
       const iface = new ethers.utils.Interface(ABI);
       const parsedData = iface.decodeFunctionData(methodSignature, data);
+      console.log("Parsed data:", parsedData);
 
-      const payedAmount: BigNumber = parsedData.amount;
-      const calculatedAmount: BigNumber = BigNumber.from(
-        ethers.utils.parseEther(ticketPrice.toString()).mul(tickets)
-      );
+      const ticketsAmount: BigNumber = parsedData.ticketsAmount;
 
-      console.log("Parsed data:", parsedData.amount.toString());
+      console.log("Parsed data:", parsedData.ticketsAmount.toString());
 
-      console.log(payedAmount, "===", calculatedAmount);
+      console.log(ticketsAmount, "===", tickets);
 
-      if (calculatedAmount.eq(payedAmount)) {
+      if (ticketsAmount.toNumber() == tickets) {
         console.log("Transaction is valid");
 
         return true;
