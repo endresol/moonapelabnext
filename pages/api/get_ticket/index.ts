@@ -17,7 +17,9 @@ async function checkEthereumTransaction(
   const provider = new ethers.providers.JsonRpcProvider(providerUrl);
 
   try {
-    const transactionReceipt = await provider.getTransaction(transactionHash);
+    const transactionReceipt = await provider.getTransactionReceipt(
+      transactionHash
+    );
     console.log("Transaction receipt:", transactionReceipt);
 
     if (transactionReceipt && transactionReceipt.confirmations > 0) {
