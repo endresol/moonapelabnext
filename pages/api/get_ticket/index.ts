@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-// import { PrismaClient } from "@prisma/client";
 import { ethers, BigNumber } from "ethers";
 import excuteQuery from "../../../helpers/db";
 
@@ -12,42 +11,38 @@ async function checkEthereumTransaction(
   tickets: number,
   ticketPrice: number
 ): Promise<boolean> {
-  const providerUrl =
-    "https://mainnet.infura.io/v3/5354fa25a0434b90a34241d37f45c33d"; // Replace with your Infura project ID
+  const providerUrl = process.env.NEXT_PUBLIC_NETWORK_RPC;
+  // "https://mainnet.infura.io/v3/5354fa25a0434b90a34241d37f45c33d"; // Replace with your Infura project ID
   const provider = new ethers.providers.JsonRpcProvider(providerUrl);
 
   try {
-    const transactionReceipt = await provider.getTransactionReceipt(
-      transactionHash
-    );
+    const transactionReceipt = await provider.getTransaction(transactionHash);
     console.log("Transaction receipt:", transactionReceipt);
 
     if (transactionReceipt && transactionReceipt.confirmations > 0) {
-      // const data = transactionReceipt.data;
-      // console.log("Transaction data:", data);
+      const data = transactionReceipt.data;
+      console.log("Transaction data:", data);
 
-      // const methodSignature = data.substring(0, 10); // The method ID is the first 4 bytes (8 characters) of the data
+      const methodSignature = data.substring(0, 10); // The method ID is the first 4 bytes (8 characters) of the data
 
-      // const iface = new ethers.utils.Interface(ABI);
-      // const parsedData = iface.decodeFunctionData(methodSignature, data);
-      // console.log("Parsed data:", parsedData);
+      const iface = new ethers.utils.Interface(ABI);
+      const parsedData = iface.decodeFunctionData(methodSignature, data);
+      console.log("Parsed data:", parsedData);
 
-      // const ticketsAmount: BigNumber = parsedData.ticketsAmount;
+      const ticketsAmount: BigNumber = parsedData.ticketsAmount;
 
-      // console.log("Parsed data:", parsedData.ticketsAmount.toString());
+      console.log("Parsed data:", parsedData.ticketsAmount.toString());
 
-      // console.log(ticketsAmount, "===", tickets);
+      console.log(ticketsAmount, "===", tickets);
 
-      // if (ticketsAmount.toNumber() == tickets) {
-      //   console.log("Transaction is valid");
+      if (ticketsAmount.toNumber() == tickets) {
+        console.log("Transaction is valid");
 
-      //   return true;
-      // } else {
-      //   console.log("Transaction is invalid");
-
-      //   return false;
-      // }
-      return true;
+        return true;
+      } else {
+        console.log("Transaction is invalid");
+        return false;
+      }
     } else {
       return false;
     }
@@ -61,8 +56,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // const prisma = new PrismaClient();
-
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
@@ -93,16 +86,6 @@ export default async function handler(
   }
 
   try {
-    // Insert data into the database using Prisma
-    // const insertTransaction = await prisma.mal_raffle_purchase.create({
-    //   data: {
-    //     address,
-    //     quantity: tickets,
-    //     raffle_id: 1,
-    //     transaction: transaction,
-    //   },
-    // });
-
     const insertTransaction = await excuteQuery({
       query:
         "INSERT INTO mal_raffle_purchase SET address = ?, quantity = ?, raffle_id = ?, transaction = ?",

@@ -1,46 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Moon Ape Lab Staking
 
-## Getting Started
+This is mostlt for internal use. A list of things that should be done with the Moon Ape Lab staking game.
 
-First, run the development server:
+## Staking Todo Now
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- ~~Fix environment variables for api~~ Update prod
+- Validate transactions
+- Maltar total tickets sold.
+- Maltar draw system
+- Automatic draw (server only)
+- Better cards
+- Better guiding in maltar buy
+- Move maltar buying code to server
+- Better popups
+- Show trais and ranking on OG
+- mad exchange check contract MAD
+- Remove Prisma
+- Find and implement other ORM
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Rewrite mutant contract or workaround
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project ToDo
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- 3d Contract
+- 3d minting
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Staking Todo Later
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- move to soft staking
+- Deku staking
 
-## Learn More
+## Packages used
 
-To learn more about Next.js, take a look at the following resources:
+- https://github.com/qiuziz/react-image-map/blob/master/README.md
+- https://www.npmjs.com/package/reactjs-popup
+- https://react-popup.elazizi.com/component-api/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usefull reading
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-Packages used:
-
-https://github.com/qiuziz/react-image-map/blob/master/README.md
-https://www.npmjs.com/package/reactjs-popup
-https://react-popup.elazizi.com/component-api/
-
-https://wk0.medium.com/integrating-smart-contracts-using-hardhat-with-nextjs-typescript-7206890b9cd8
+- https://wk0.medium.com/integrating-smart-contracts-using-hardhat-with-nextjs-typescript-7206890b9cd8
