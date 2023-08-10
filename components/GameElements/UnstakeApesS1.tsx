@@ -9,6 +9,7 @@ import { extractIntegers } from "../../helpers/bignum";
 import { ApeCard } from ".";
 import { removeDuplicateApes } from "../../helpers/nfts";
 import { MalButton } from "../Layout";
+import { toast } from "react-toastify";
 
 export const UnstakeApesS1: React.FC = () => {
   const { address } = useWeb3Context();
@@ -19,6 +20,8 @@ export const UnstakeApesS1: React.FC = () => {
   const [stakedLoot, setStakedLoot] = useState<number[] | null>(null);
   const [apesToUnstake, setApesToUnstake] = useState<number[]>([]);
   const [lootToUnstake, setLootToUnstake] = useState<number[] | null>(null);
+  const [allHaveloot, setAllHaveLoot] = useState<boolean>(false);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // unstake all apes dersom ingen er valgt (sjekk om vi ønsker dette)
@@ -29,8 +32,12 @@ export const UnstakeApesS1: React.FC = () => {
 
   const handleImageClick = (imageId) => {
     const isSelected = apesToUnstake.includes(imageId);
+    const apiIndex = apesToUnstake.indexOf(imageId);
+    const loot = stakedLoot[apiIndex];
+
     if (isSelected) {
       setApesToUnstake(apesToUnstake.filter((id) => id !== imageId));
+
     } else {
       setApesToUnstake([...apesToUnstake, imageId]);
     }
@@ -39,7 +46,7 @@ export const UnstakeApesS1: React.FC = () => {
   // BUTTON ACTIONS
   const handleUnstakeAction = async () => {
     if (!apesToUnstake || apesToUnstake.length <= 0) {
-      alert("no apes selected");
+      toast.error("No apes selected");
       return;
     };
     console.log("got apes and start unstaking");
@@ -52,8 +59,8 @@ export const UnstakeApesS1: React.FC = () => {
   };
 
   const handleUnstakeLootAction = async () => {
-    console.log("start unstaking loot");
-    const transaction = await moonStakingContract.removeLootFromStakedApes(lootToUnstake);
+    console.log("start unstaking loot", lootToUnstake);
+    const transaction = await moonStakingContract.removeLootFromStakedApes(apesToUnstake);
     console.log("transaction started:", transaction);
     await transaction.wait();
     console.log(transaction);  
@@ -68,10 +75,31 @@ export const UnstakeApesS1: React.FC = () => {
   };
 
   const isAnyItemSelected = apesToUnstake.length > 0;
-  const isLootSelected =
-      (apesToUnstake.length > 0 &&
-        apesToUnstake.every((item) => stakedLoot[item - 1] !== 0));
 
+  const isLootSelected = () => {  
+    console.log("isLootSelected", apesToUnstake);
+     
+    if (apesToUnstake.length <= 0)
+      return false;
+
+    let allLoot = true;
+
+    for (let i = 0; i < apesToUnstake.length; i++) {
+      const item = apesToUnstake[i];
+      const apeIndex = stakedApes.indexOf(item);
+
+      const loot = stakedLoot[apeIndex];
+      console.log("loot", loot, "item", item, "apeindex", apeIndex);
+      if (loot === 0) {
+        allLoot = false;
+        break;
+      };
+    }
+
+    //apesToUnstake.forEach((item) => (stakedLoot[apesToUnstake.indexOf(item)] !== 0)  allLoot=false );
+    console.log("all loot", allLoot);
+    return allLoot;
+  };
 
   useEffect(() => {
     if (!moonStakingContract) return;
@@ -122,9 +150,9 @@ export const UnstakeApesS1: React.FC = () => {
             </MalButton>
             <MalButton
             onClick={() => handleUnstakeLootAction()}
-            isDisabled={isAnyItemSelected && !isLootSelected}
+            isDisabled={isAnyItemSelected && !isLootSelected()}
           >
-             Remove {isLootSelected ? "selected" : "all"} loot
+             Remove {isLootSelected() ? "selected" : "all"} loot
             </MalButton>
             <MalButton
             onClick={() => handleClaimAction()}

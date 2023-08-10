@@ -1,14 +1,15 @@
 const axios = require("axios");
+require("dotenv").config({ path: "./../" });
+
 const { ethers } = require("ethers");
 const fs = require("fs");
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const apeAbi = "C:/Users/endre/dev/MadEx/abis/MALgenesis-ABI.json";
-const apeAddress = "0x34c4EBA1966B502dfCF0868b6f271d85CC8A2312";
-const provider =
-  "https://mainnet.infura.io/v3/5354fa25a0434b90a34241d37f45c33d";
+const apeAbi = "./../abis/MALgenesis-ABI.json";
+const apeAddress = process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT;
+const provider = process.env.NEXT_PUBLIC_NETWORK_RPC;
 
 const maxRetries = 3;
 const batchSize = 10;
@@ -54,6 +55,8 @@ const processBatch = async (contract, startId, batchSize) => {
 const main = async () => {
   const abi = readABI();
   if (!abi) return;
+
+  console.log("apeAddress: ", apeAddress);
 
   try {
     const _provider = new ethers.providers.JsonRpcProvider(provider);

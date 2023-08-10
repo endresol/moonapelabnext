@@ -4,7 +4,8 @@ This is mostlt for internal use. A list of things that should be done with the M
 
 ## Staking Todo Now
 
-- ~~Fix environment variables for api~~ Update prod
+- ~~Fix environment variables for api~~ Update also prod
+- Fix unstaking loot and pets
 - Validate transactions
 - Maltar total tickets sold.
 - Maltar draw system
@@ -17,24 +18,33 @@ This is mostlt for internal use. A list of things that should be done with the M
 - mad exchange check contract MAD
 - Remove Prisma
 - Find and implement other ORM
+- Mutants card
+- Change RoundedBox width on smaller devices
+- test and sechedule ape_owners script
+- Rewrite ape_owners to read events
 
 - Rewrite mutant contract or workaround
 
 ## Project ToDo
 
+- USE OWN NODE SERVER
 - 3d Contract
 - 3d minting
+- research ERC-4097
+- Make testing easier...
 
 ## Staking Todo Later
 
 - move to soft staking
 - Deku staking
+- raffle system can insert transaction right away and then update when finished
 
 ## Packages used
 
 - https://github.com/qiuziz/react-image-map/blob/master/README.md
 - https://www.npmjs.com/package/reactjs-popup
 - https://react-popup.elazizi.com/component-api/
+- https://headlessui.com/
 
 ## Usefull reading
 

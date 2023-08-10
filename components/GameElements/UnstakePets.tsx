@@ -19,6 +19,23 @@ export const UnstakePets: React.FC = () => {
   const [myStakedPets, setStakedMyPets] = useState<PetObj[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const unstakeAllPetsHandler = async () => {
+    console.log("UNSTAKE ALL PETS", myStakedPets);
+    const petTypes = [];
+    myStakedPets.forEach((pet) => {
+      petTypes.push(pet.petType);
+    }
+    );
+
+    console.log("UNSTAKE ALL PETS", petTypes);
+
+    const transaction = await stakingContractS1.unstake1155(petTypes);
+    console.log("UNSTAKE ALL PETS transaction", transaction);
+    await transaction.wait();
+    console.log("DONE", transaction);    
+    
+  };
+
   useEffect(() => {
     if (!stakingContractS1) return;
     let mounted = true;
@@ -62,7 +79,7 @@ export const UnstakePets: React.FC = () => {
       </p>
       <div className="relative grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5">
         {myStakedPets && myStakedPets.map((pet) => (
-          <div key={pet.petType} className={`rounded-xl overflow-hidden shadow-lg border-4 border-transparent`}>
+          <div key={pet.petType} className={`rounded-xl overflow-hidden shadow-lg border-4 border-white`}>
           <div className="relative">
             <Image src={`https://storage.moonapelab.io/static/pets/thumbs/${pet.petType}.png`} alt={`Pets type ${pet.petType}: ${pet.count}`} width={150} height={150} className="w-full"/>
             <span className="sr-only">Notifications</span>
@@ -73,7 +90,7 @@ export const UnstakePets: React.FC = () => {
         )}
       </div>
       <div>
-        <MalButton onClick={() => {console.log("unstake")}}>Unstake all</MalButton>
+        <MalButton onClick={() => unstakeAllPetsHandler()}>Unstake all</MalButton>
       </div>
     </div>
   )
