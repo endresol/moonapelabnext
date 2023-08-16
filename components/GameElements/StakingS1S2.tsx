@@ -12,6 +12,8 @@ import { NftList } from ".";
 import { UnstakePets, StakeMutants } from '.';
 import UnstakeApesS1 from './UnstakeApesS1';
 import { LoadingScreen } from '../Layout';
+
+import { Popup } from "../Layout/Popup";
 import { toast } from 'react-toastify';
 
 interface Action {
@@ -25,6 +27,7 @@ export function StakingS1S2() {
   const [stakedS2OG, setStakedS2OG] = useState<number[] | null>(null);
   const [stakedS2Mutants, setStakedS2Mutants] = useState<number[] | null>(null);
   const [malGenesis, setMalGenesis] = useState<number[] | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
 
   // BUTTON ACTIONS
@@ -63,14 +66,18 @@ export function StakingS1S2() {
       return;
     };
 
-    console.log("got apes and start staking");
-    
-    const transaction = await moonStakingContractS2.stake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, nfts);
-    toast.info( `transaction started: <a href="">${transaction.hash}</a>`, { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
-    await transaction.wait();
-    toast.success("Staked", { autoClose: 5000 });
-    console.log(transaction);
-    
+    const isApprove = await malgenesisContract.isApprovedForAll(address, process.env.NEXT_PUBLIC_MOONSTAKING_S2_CONTRACT);
+    console.log("isApprovedForAll", isApprove);
+    if (!isApprove) {
+      setIsPopupOpen(true);
+    } else {
+      console.log("got apes and start staking");
+      const transaction = await moonStakingContractS2.stake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, nfts);
+      toast.info( `transaction started: <a href="">${transaction.hash}</a>`, { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
+      await transaction.wait();
+      toast.success("Staked", { autoClose: 5000 });
+      console.log(transaction);
+    }
   };
 
   const handleUnstakeMutantsAction = async (nfts: number[]) => {
@@ -92,6 +99,19 @@ export function StakingS1S2() {
     
   };
 
+  const handleApprovalAction = async () => {
+    console.log("start approval");
+    const transaction = await malgenesisContract.setApprovalForAll(process.env.NEXT_PUBLIC_MOONSTAKING_S2_CONTRACT, true);
+    
+    console.log("transaction started:", transaction);
+  
+    await transaction.wait();
+    toast.success("Set Approved done!", { autoClose: 5000 });
+    console.log(transaction);
+
+  };
+
+
   // BUTTONS
 
   const OGseason2UnstakeActions: Action[] = [
@@ -104,6 +124,7 @@ export function StakingS1S2() {
   ];
 
   const OGseason2StakeActions: Action[] = [
+    { label: "Approve ", onClick: handleApprovalAction },
     { label: 'Stake', onClick: handleStakeS2Action },
   ];
   
@@ -183,6 +204,11 @@ export function StakingS1S2() {
         </div>
         <StakeMutants />
       </div>
+      <Popup open={isPopupOpen} setOpen={setIsPopupOpen} title="Approval needed before staking">
+          <>
+            <p className="text-white">Approval is needed for staking to work. Please click the approval button and wait for the transaction to be approved.</p>
+          </>
+        </Popup>
       </>
     )}  
     </>

@@ -7,6 +7,8 @@ import useMoonPetsContract from '../../hooks/useMoonPetsContract';
 import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { getPetRarityName, getPetMADexchange} from "./../../helpers";
 import { MalButton } from '../Layout';
+import { Popup } from "../Layout/Popup";
+import { toast } from 'react-toastify';
 
 export const BurnPets: React.FC = () => {
   const { address } = useWeb3Context();
@@ -17,7 +19,7 @@ export const BurnPets: React.FC = () => {
   const [burnCounter, setBurnCounter] = useState<number[]>([0,0,0,0,0,0,0]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalMAD, setTotalMAD] = useState<number>(0);
-
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
  
   const handleBurnClick = async () => {
     console.log("BURN");
@@ -36,7 +38,20 @@ export const BurnPets: React.FC = () => {
       }
     })
 
-    console.log("got pet and start burning");
+    console.log("got pet and start burning", petsArray, numberArray);
+    const isApprove = await moonPetsContract.isApprovedForAll(address, process.env.NEXT_PUBLIC_MAD_EXCHANGE_CONTRACT);
+    console.log("isApprovedForAll", isApprove);
+    if (!isApprove) {
+      setIsPopupOpen(true);
+    } else {
+
+    try {
+      const gasEstimate = await madExchangeContract.estimateGas.burnPetForMad(petsArray, numberArray);
+      console.log(`Estimated gas: ${gasEstimate.toString()}`);
+    } catch (error) {
+      console.error('Error estimating gas:', error);
+    }
+  
     
     const transaction = await madExchangeContract.burnPetForMad(petsArray, numberArray);
     console.log("transaction started:", transaction);
@@ -44,7 +59,20 @@ export const BurnPets: React.FC = () => {
     await transaction.wait();
 
     console.log(transaction);
+    }
     
+  };
+
+  const handleApprovalAction = async () => {
+    console.log("start approval");
+    const transaction = await moonPetsContract.setApprovalForAll(process.env.NEXT_PUBLIC_MAD_EXCHANGE_CONTRACT, true);
+    
+    console.log("transaction started:", transaction);
+  
+    await transaction.wait();
+    toast.success("Set Approved done!", { autoClose: 5000 });
+    console.log(transaction);
+
   };
 
   const handleIncrementClick =(index) => {
@@ -153,8 +181,14 @@ export const BurnPets: React.FC = () => {
         ))}
         </div>
         <div>
+          <MalButton onClick={handleApprovalAction}>Approve MAD Exchange</MalButton>
           <MalButton onClick={handleBurnClick}>Burn pet for {totalMAD} MAD </MalButton>
         </div>
+        <Popup open={isPopupOpen} setOpen={setIsPopupOpen} title="Approval needed before burning">
+          <>
+            <p className="text-white">Approval is needed for the MAD Exchange to work. Please click the approval button and wait for the transaction to be approved.</p>
+          </>
+        </Popup>
       </>
       )}
     </>

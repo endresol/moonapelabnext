@@ -7,6 +7,7 @@ import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { getLootTypeNameFromIndex, getLootType, getLootMADexchangeFromIndex } from "./../../helpers";
 import { MalButton } from "../Layout";
 import {toast} from 'react-toastify';
+import { Popup } from "../Layout/Popup";
 
 
 export const BurnLoot: React.FC = () => {
@@ -18,6 +19,7 @@ export const BurnLoot: React.FC = () => {
   const [lootToBurn, setLootToBurn] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalMAD, setTotalMAD] = useState<number>(0);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
  
   const handleBurnClick = async () => {
@@ -27,6 +29,11 @@ export const BurnLoot: React.FC = () => {
       toast.error("No loot selected");
       return;
     };
+    const isApprove = await moonLootContract.isApprovedForAll(address, process.env.NEXT_PUBLIC_MAD_EXCHANGE_CONTRACT);
+    console.log("isApprovedForAll", isApprove);
+    if (!isApprove) {
+      setIsPopupOpen(true);
+    } else {
 
     console.log("got loot and start burning",lootToBurn);
     const transaction = await madExchangeContract.burnLootForMad(lootToBurn);
@@ -35,7 +42,7 @@ export const BurnLoot: React.FC = () => {
     await transaction.wait();
     toast.success("Transaction completed");
     console.log(transaction);
-    
+    }
   };
 
   const handleToggleLootSelect = (lootId) => {
@@ -49,6 +56,18 @@ export const BurnLoot: React.FC = () => {
       setLootToBurn([...lootToBurn, lootId]);
       setTotalMAD(Math.round((totalMAD + getLootMADexchangeFromIndex(lootId))*10)/10);
     }
+  };
+
+  const handleApprovalAction = async () => {
+    console.log("start approval");
+    const transaction = await moonLootContract.setApprovalForAll(process.env.NEXT_PUBLIC_MAD_EXCHANGE_CONTRACT, true);
+    
+    console.log("transaction started:", transaction);
+  
+    await transaction.wait();
+    toast.success("Set Approved done!", { autoClose: 5000 });
+    console.log(transaction);
+
   };
 
   useEffect(() => {
@@ -90,6 +109,7 @@ export const BurnLoot: React.FC = () => {
     <>
       {isLoading && <div>Loading</div>}
       {!isLoading && (
+      <>
       <div className="mt-10 mb-10">
         <h2 className="text-2xl">Burn Loot</h2>
         <p>
@@ -111,9 +131,16 @@ export const BurnLoot: React.FC = () => {
         ))}
         </div>
         <div>
+          <MalButton onClick={handleApprovalAction}>Approve MAD Exchange</MalButton>
           <MalButton onClick={handleBurnClick}>Burn loot for {totalMAD} MAD </MalButton>
         </div>
       </div>
+        <Popup open={isPopupOpen} setOpen={setIsPopupOpen} title="Approval needed before burning">
+          <>
+            <p className="text-white">Approval is needed for the MAD Exchange to work. Please click the approval button and wait for the transaction to be approved.</p>
+          </>
+        </Popup>
+        </>
       )}
     </>
 

@@ -32,6 +32,7 @@ This is mostlt for internal use. A list of things that should be done with the M
 - 3d minting
 - research ERC-4097
 - Make testing easier...
+- View game with any wallet...
 
 ## Staking Todo Later
 
@@ -49,3 +50,8 @@ This is mostlt for internal use. A list of things that should be done with the M
 ## Usefull reading
 
 - https://wk0.medium.com/integrating-smart-contracts-using-hardhat-with-nextjs-typescript-7206890b9cd8
+
+## Look into
+
+- https://louisbarranqueiro.github.io/reapop/
+- https://www.youtube.com/watch?v=7CcAKre3Ifc

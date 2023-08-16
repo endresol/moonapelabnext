@@ -43,7 +43,7 @@ export const StakeMutants: React.FC = () => {
     console.log("transaction started:", transaction);
   
     await transaction.wait();
-    toast.success("Approved", { autoClose: 5000 });
+    toast.success("Set Approved done!", { autoClose: 5000 });
     console.log(transaction);
 
   };

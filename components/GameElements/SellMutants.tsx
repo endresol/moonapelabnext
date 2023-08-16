@@ -59,7 +59,8 @@ export const SellMutants: React.FC = () => {
   },[address, moonPetsContract])
   return (
     <>
-    <div>Sell mutants</div>
+    <h3 className="text-2xl">Sell mutants</h3>
+    <p className="text-white">Not yet open!</p>
     <NftList nftlist={myMutants} withPrice={true} imagepath="https://storage.moonapelab.io/mutants_images/thumbs" actions={mutantsActions} />
     </>
   )
