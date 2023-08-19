@@ -19,7 +19,12 @@ export async function getServerSideProps() {
   };
 }
 
-const TicketBoothPage: NextPage = ({ isBoothOpen }) => {
+interface Props {
+  isBoothOpen: boolean;
+}
+
+
+const TicketBoothPage: NextPage<Props> = ({ isBoothOpen }) => {
   return (
     <RoundedBox>
       <MALheader headline="Ticket Booth" /> 
