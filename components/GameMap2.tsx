@@ -19,6 +19,7 @@ export const GameMap2: React.FC = () => {
       { id: "madexchange", shape: "circle", coords: [780, 230, 80]},
       { id: "staking", shape: "circle", coords: [450, 520, 75] },
       { id: "ticketbooth", shape: "circle", coords: [595, 335, 60] },
+      { id: "maltar", shape: "circle", coords: [595, 140, 75] },
     ]
   };
 

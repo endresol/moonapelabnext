@@ -14,3 +14,4 @@ export { StakeMutants } from "./StakeMutants";
 export { UnstakePets } from "./UnstakePets";
 export { TicketBooth } from "./TicketBooth";
 export { TicketBoothClosed } from "./TicketBoothClosed";
+export { MaltarWinners } from "./MaltarWinners";

@@ -393,3 +393,9 @@ model mal_raffle_purchase {
   transaction String     @db.VarChar(150)
   raffle      mal_raffle @relation(fields: [raffle_id], references: [id]) // Add this relation to link to raffle
 }
+
+model mal_raffle_tickets {
+  id      BigInt  @id @default(autoincrement())
+  address String  @db.VarChar(150)
+  winner  Boolean @default(false)
+}
