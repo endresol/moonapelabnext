@@ -11,5 +11,6 @@ CREATE TABLE
         date DATE,
         time TIME,
         prize VARCHAR(150),
-        winner VARCHAR(150)
+        winner VARCHAR(150),
+        ticketId VARCHAR(150)
     );
