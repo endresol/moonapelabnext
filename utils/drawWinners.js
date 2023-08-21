@@ -1,8 +1,8 @@
 const mysql = require("mysql2/promise");
 const dotenv = require("dotenv");
-const { log } = require("console");
+const path = require("path");
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 async function getConnection() {
   return await mysql.createConnection({
