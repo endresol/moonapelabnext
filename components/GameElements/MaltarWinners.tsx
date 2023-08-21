@@ -14,8 +14,9 @@ export const MaltarWinners: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Winners</h1>
+    <div className="mt-4 mb-4">
+      <h2 className="text-2xl font-bold">Maltar Winners</h2>
+      {winners.length === 0 && <p>No winners yet - the first draw will happen at 19:30 utc</p>}
       <ul>
         {winners.map((winner, index) => (
           <li key={index}>{winner.winner} - Ticket #{winner.ticketId} - Prize {winner.prize}</li>
