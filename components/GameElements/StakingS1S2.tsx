@@ -65,6 +65,10 @@ export function StakingS1S2() {
       toast.error("No apes selected");
       return;
     };
+    
+    const numberApes = [];
+    nfts.forEach((nft) => { numberApes.push(Number(nft)) });
+    console.log("numberApes", numberApes);
 
     const isApprove = await malgenesisContract.isApprovedForAll(address, process.env.NEXT_PUBLIC_MOONSTAKING_S2_CONTRACT);
     console.log("isApprovedForAll", isApprove);
@@ -72,7 +76,7 @@ export function StakingS1S2() {
       setIsPopupOpen(true);
     } else {
       console.log("got apes and start staking");
-      const transaction = await moonStakingContractS2.stake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, nfts);
+      const transaction = await moonStakingContractS2.stake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, numberApes);
       toast.info( `transaction started: <a href="">${transaction.hash}</a>`, { autoClose: 5000, pauseOnHover:true, hideProgressBar: false});
       await transaction.wait();
       toast.success("Staked", { autoClose: 5000 });
