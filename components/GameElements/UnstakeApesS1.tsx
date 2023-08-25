@@ -59,7 +59,14 @@ export const UnstakeApesS1: React.FC = () => {
   };
 
   const handleUnstakeLootAction = async () => {
-    console.log("start unstaking loot", lootToUnstake);
+    let apesWithLoot = [];
+    if (!apesToUnstake || apesToUnstake.length <= 0) {
+      apesWithLoot = stakedApes.filter((ape, index) => (stakedLoot[index] !== 0));
+    } else {
+      apesWithLoot = apesToUnstake;
+    }
+
+    console.log("start unstaking loot", apesWithLoot);
     const transaction = await moonStakingContract.removeLootFromStakedApes(apesToUnstake);
     console.log("transaction started:", transaction);
     await transaction.wait();
@@ -132,7 +139,7 @@ export const UnstakeApesS1: React.FC = () => {
       <h2 className="text-3xl font-bold mb-4">My Staked Moon Apes - Season 1</h2>
       <h3 className="text-xl mb-4">Staked before 23rd December 2022</h3>
       <p className="mb-4">Click ”UNSTAKE ALL”/”UNSTAKE SELECTED” in order to unstake all/selected Apes (if an Ape is staked with Loot, the Loot will also be unstaked).<br />
-        Click ”REMOVE SELECTED LOOT”/”REMOVE ALL LOOT” in order to remove Loot from selected/all staked Apes (the selected Apes will remain staked).<br />
+        Click UNSTAKE SELECTED LOOT”/UNSTAKE ALL LOOT” in order to unstake Loot from selected/all staked Apes (the selected Apes will remain staked).<br />
         Click ”CLAIM” to make sure no MALv2 are lost if you unstake any Genesis Moon Apes from the old contract.<br />
         Confirm the transaction through Metamask in order to finalise changes.<br />
       </p>
@@ -152,7 +159,7 @@ export const UnstakeApesS1: React.FC = () => {
             onClick={() => handleUnstakeLootAction()}
             isDisabled={isAnyItemSelected && !isLootSelected()}
           >
-             Remove {isLootSelected() ? "selected" : "all"} loot
+             Unstake {isLootSelected() ? "selected" : "all"} loot
             </MalButton>
             <MalButton
             onClick={() => handleClaimAction()}
