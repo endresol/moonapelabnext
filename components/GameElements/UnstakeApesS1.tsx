@@ -54,7 +54,7 @@ export const UnstakeApesS1: React.FC = () => {
     const transaction = await moonStakingContract.unstake721(process.env.NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT, apesToUnstake);
     console.log("transaction started:", transaction);
     
-    await transaction.wait();
+    await transaction.wait(); 
     console.log(transaction);
   };
 
@@ -65,6 +65,11 @@ export const UnstakeApesS1: React.FC = () => {
     } else {
       apesWithLoot = apesToUnstake;
     }
+
+    if (apesWithLoot.length <= 0) {
+      toast.error("No apes with loot selected");
+      return;
+    };
 
     console.log("start unstaking loot", apesWithLoot);
     const transaction = await moonStakingContract.removeLootFromStakedApes(apesToUnstake);
