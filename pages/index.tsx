@@ -6,7 +6,7 @@ const Home: NextPage = () => {
   return (
     <div className="">
       <Head>
-        <title>Moon Ape Labs</title>
+        <title>Moon Ape Lab</title>
         <link rel="icon" href="favicon.png" />
       </Head>
       <main className="grid place-items-center">
