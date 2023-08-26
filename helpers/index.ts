@@ -1,10 +1,12 @@
 export { getPetRarityName } from "./raritynaming";
 export { getPetMADexchange } from "./raritynaming";
 export { getLootTypeNameFromIndex } from "./raritynaming";
-export {getLootType } from "./raritynaming";
-export {getLootMADexchangeFromIndex} from "./raritynaming";
+export { getLootType } from "./raritynaming";
+export { getLootMADexchangeFromIndex } from "./raritynaming";
 export { getApeRankById } from "./ape-rank";
 export { getApeReward } from "./rewards";
 export { getLootReward } from "./rewards";
 export { getBaseApeRewardS1 } from "./rewards";
 export { getApeRewardWithLoot } from "./rewards";
+export { getMutantRank } from "./raritynaming";
+export { getMutantRewardFromId } from "./raritynaming";

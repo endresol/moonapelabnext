@@ -244,3 +244,15 @@ export function getMutantMadPrice(index: number): number {
   if (index <= 16000) return 10;
   return 15;
 }
+
+export function getMutantRank(index: number): string {
+  if (index <= 10000) return "Common";
+  if (index <= 16000) return "Rare";
+  return "Legendary";
+}
+
+export function getMutantRewardFromId(index: number): number {
+  if (index <= 10000) return 100;
+  if (index <= 16000) return 150;
+  return 250;
+}

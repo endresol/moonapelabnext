@@ -47,7 +47,7 @@ export const TicketBoothClosed: React.FC = () => {
   return (
     <>
       <h3 className="text-center text-2xl font-bold text-white">Ticket Booth is Closed</h3>
-      <p className="text-center text-white">We had to draw the line somewhee and here it is.
+      <p className="text-center text-white">We had to draw the line somewhere and here it is.
       Good luck with your {ticketsOwned} in the draw</p>
     </>
 

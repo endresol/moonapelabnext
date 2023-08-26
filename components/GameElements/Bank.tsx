@@ -65,19 +65,23 @@ export function Bank() {
       {isLoading && <LoadingScreen height="h-36"/> }
       {!isLoading && (      
         <div className="mt-10 mb-10">
-          <div className="flex flex-row">
+          {/* <div className="flex flex-row">
             <div className="basis-1/2">Total Daily MALv1 reward: </div>
             <div className="basis-1/2">{dailyYield ? Math.floor(+ethers.utils.formatEther(dailyYield)) : "loading"} </div>
-          </div><div className="flex flex-row mb-5">
+          </div>
+          <div className="flex flex-row mb-5">
             <div className="basis-1/2">MALv1 Balance:</div>
             <div className="basis-1/2"> {malv1Balance ? Math.floor(+ethers.utils.formatEther(malv1Balance)) : "loading"} </div>
-          </div><div className="flex flex-row">
+          </div> */}
+          <div className="flex flex-row">
             <div className="basis-1/2">Total Daily MALv2 reward: </div>
             <div className="basis-1/2">{dailyMalV2Yield ? Math.floor(+ethers.utils.formatEther(dailyMalV2Yield)) : "loading"} </div>
-          </div><div className="flex flex-row mb-5">
+          </div>
+          <div className="flex flex-row mb-5">
             <div className="basis-1/2">MALv2 Balance: </div>
             <div className="basis-1/2">{malv2Balance ? Math.floor(+ethers.utils.formatEther(malv2Balance)) : "loading"} </div>
-          </div><div className="flex flex-row">
+          </div>
+          <div className="flex flex-row">
             <div className="basis-1/2">MAD Balance: </div>
             <div className="basis-1/2">{madBalance ? ethers.utils.formatEther(madBalance) : "loading"} </div>
           </div>

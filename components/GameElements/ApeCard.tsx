@@ -62,7 +62,7 @@ export const ApeCard: React.FC<ApeCardProps> = ({nftid,  selected, onClick, imag
         
         <div className="text-small">{ aperank && aperank.type} Moon Ape #{nftid}</div>
         <div className="text-small">Daily reward</div>
-        {isSeason1 && (<div className="text-small">{getApeRewardWithLoot(aperank.type, getLootTypeNameFromIndex(withLoot)).reward} MALv1</div>) }
+        {/* {isSeason1 && (<div className="text-small">{getApeRewardWithLoot(aperank.type, getLootTypeNameFromIndex(withLoot)).reward} MALv1</div>) } */}
         <div className="text-small">{getApeReward(aperank.type).reward} MALv2</div>
       </div>
         </>

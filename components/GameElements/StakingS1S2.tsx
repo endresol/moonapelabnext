@@ -65,7 +65,7 @@ export function StakingS1S2() {
       toast.error("No apes selected");
       return;
     };
-    
+
     const numberApes = [];
     nfts.forEach((nft) => { numberApes.push(Number(nft)) });
     console.log("numberApes", numberApes);
@@ -204,7 +204,7 @@ export function StakingS1S2() {
           <p className="mb-6">Select the Moon Apes you want to stake and click the ”STAKE” button.<br />
             Confirm transaction through Metamask in order to finalise changes.
           </p>
-          <NftList nftlist={malGenesis} imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason2StakeActions} />
+          <NftList nftlist={malGenesis} isApe={true} imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason2StakeActions} />
         </div>
         <StakeMutants />
       </div>
