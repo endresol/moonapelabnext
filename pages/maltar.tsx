@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { ThinRoundedBox as RoundedBox, MALheader} from "../components/Layout";
+import { RoundedBox as RoundedBox, MALheader} from "../components/Layout";
 import { MaltarWinners } from "../components/GameElements";
 
 const MaltarPage: NextPage = () => {

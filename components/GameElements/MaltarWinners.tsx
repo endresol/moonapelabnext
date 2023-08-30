@@ -5,6 +5,8 @@ import { useWeb3Context } from "../../context";
 
 
 export const MaltarWinners: React.FC = () => {
+  
+  const { address } = useWeb3Context();
   const [winners, setWinners] = useState([]);
   useEffect(() => {
     fetch('/api/winners')
@@ -19,7 +21,7 @@ export const MaltarWinners: React.FC = () => {
       {winners.length === 0 && <p>No winners yet - the first draw will happen at 19:30 utc</p>}
       <ul>
         {winners.map((winner, index) => (
-          <li key={index}>{winner.winner} - Ticket #{winner.ticketId} - Prize {winner.prize}</li>
+          <li key={index}><span className={`${winner.winner === address ? 'text-yellow-400' : 'text-white'}`}>{winner.winner} - Ticket #{winner.ticketId} - Prize {winner.prize}</span></li>
         ))}
       </ul>
     </div>
