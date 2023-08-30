@@ -10,3 +10,5 @@ export { getBaseApeRewardS1 } from "./rewards";
 export { getApeRewardWithLoot } from "./rewards";
 export { getMutantRank } from "./raritynaming";
 export { getMutantRewardFromId } from "./raritynaming";
+export { getPassName } from "./raritynaming";
+export { getPassDiscount } from "./raritynaming";

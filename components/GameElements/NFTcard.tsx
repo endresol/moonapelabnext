@@ -55,12 +55,12 @@ export const NFTcard: React.FC<NFTcardProps> = ({nftid,  selected, onClick, imag
         )}
 
         {!withPrice && (
-          <>
+          <div className="p-2">
             <div className="text-small">{ aperank && aperank} Moon Mutant #{nftid}</div>
             <div className="text-small">Daily reward</div>
             {/* {isSeason1 && (<div className="text-small">{getApeRewardWithLoot(aperank.type, getLootTypeNameFromIndex(withLoot)).reward} MALv1</div>) } */}
             <div className="text-small">{getMutantRewardFromId(nftid)} MALv2</div>
-            </>
+          </div>
         )}
       </div>
       </div>

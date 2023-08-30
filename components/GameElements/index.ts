@@ -12,6 +12,8 @@ export { SellMutants } from "./SellMutants";
 export { TaxClaim } from "./TaxClaim";
 export { StakeMutants } from "./StakeMutants";
 export { UnstakePets } from "./UnstakePets";
+export { UnstakeTreasuries } from "./UnstakeTreasuries";
+export { UnstakeMoonPass } from "./UnstakeMoonPass";
 export { TicketBooth } from "./TicketBooth";
 export { TicketBoothClosed } from "./TicketBoothClosed";
 export { MaltarWinners } from "./MaltarWinners";

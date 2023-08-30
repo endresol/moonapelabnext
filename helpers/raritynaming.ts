@@ -256,3 +256,17 @@ export function getMutantRewardFromId(index: number): number {
   if (index <= 16000) return 150;
   return 250;
 }
+
+export function getPassName(index: string): string {
+  if (index === "1") return "green";
+  if (index === "5") return "blue";
+  if (index === "10") return "gold";
+  return "Unknown";
+}
+
+export function getPassDiscount(index: string): number {
+  if (index === "1") return 10;
+  if (index === "5") return 15;
+  if (index === "10") return 20;
+  return 0;
+}

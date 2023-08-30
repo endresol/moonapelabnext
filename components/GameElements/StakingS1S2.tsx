@@ -9,7 +9,7 @@ import { extractIntegers } from "../../helpers/bignum";
 import { removeDuplicateApes } from "../../helpers/nfts";
 
 import { NftList } from ".";
-import { UnstakePets, StakeMutants } from '.';
+import { UnstakePets, StakeMutants, UnstakeTreasuries, UnstakeMoonPass } from '.';
 import UnstakeApesS1 from './UnstakeApesS1';
 import { LoadingScreen } from '../Layout';
 
@@ -207,6 +207,8 @@ export function StakingS1S2() {
           <NftList nftlist={malGenesis} isApe={true} imagepath="https://storage.moonapelab.io/static/moonapes/thumbs" actions={OGseason2StakeActions} />
         </div>
         <StakeMutants />
+        <UnstakeTreasuries />
+        <UnstakeMoonPass />
       </div>
       <Popup open={isPopupOpen} setOpen={setIsPopupOpen} title="Approval needed before staking">
           <>

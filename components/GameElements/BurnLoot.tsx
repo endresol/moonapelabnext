@@ -115,9 +115,9 @@ export const BurnLoot: React.FC = () => {
         <p>
           This is the last use of the loot
         </p>
-        <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {myLoot && myLoot.map((loot) => (
-          <div key={loot} className={`rounded-xl overflow-hidden shadow-lg border-4 ${lootToBurn.includes(loot) ? ("border-white") : ("border-black")}`}
+          <div key={loot} className={`rounded-xl overflow-hidden shadow-lg border-4 ${lootToBurn.includes(loot) ? ("border-white") : ("border-gray-400")}`}
           onClick={() => handleToggleLootSelect(loot)}>
             <div className="relative">
               <Image src={`https://storage.moonapelab.io/static/loots/thumbs/${getLootTypeNameFromIndex(loot)}.png`} alt={`${getLootTypeNameFromIndex(loot)} loot # ${loot}: ${loot}`} width={150} height={150} className="w-full"/>
