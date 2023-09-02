@@ -8,10 +8,10 @@ const BankPage: NextPage = () => {
     <RoundedBox>
       <MALheader headline="Bank" />
       <Bank />
-      <hr />
+      {/* <hr />
       <TaxStaking />
       <hr />
-      <TaxClaim />
+      <TaxClaim /> */}
     </RoundedBox>
   )
 }
