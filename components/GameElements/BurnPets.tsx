@@ -146,12 +146,14 @@ export const BurnPets: React.FC = () => {
     <>
       {isLoading && <div>Loading</div>}
       {!isLoading && (
-      <>
-        <h2 className="text-2xl">Burn Pets</h2>
-        <p>
-          This is the last use of the pets unless you have a full set of all 8 pets. 
+      <div  className="my-10">
+        <h2 className="text-2xl mb-4">Burn Pets</h2>
+        <p className="mb-4">
+          This is the last use of the pets unless you have a full set of all 8 pets. Then you sould keep them as they will be used in the future. You can burn your pets and get $MAD in return. 
+          The type of pet you burn will determine the amount of $MAD you get in return. The more rare the pet, the more $MAD you get.
+          When the Mad Exchange runs out of $MAD, it will be closed.
         </p>
-        <div className="relative grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+        <div className="relative mb-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {myPets && myPets.map((pet, index) => (
           <div key={index} className={`rounded-xl overflow-hidden shadow-lg border-4 ${burnCounter[index] > 0 ? ("border-white") : ("border-gray-400")}`}>
           <div className="relative">
@@ -162,7 +164,7 @@ export const BurnPets: React.FC = () => {
               { getPetMADexchange(index)} $MAD
             </div>          
           </div>
-          <div className="font-bold text-l mb-2">{getPetRarityName(index)} Moon Pet</div>
+          <div className="font-bold text-l m-2">{getPetRarityName(index)} Moon Pet</div>
           
           <div> 
             <div>
@@ -189,7 +191,7 @@ export const BurnPets: React.FC = () => {
             <p className="text-white">Approval is needed for the MAD Exchange to work. Please click the approval button and wait for the transaction to be approved.</p>
           </>
         </Popup>
-      </>
+      </div>
       )}
     </>
 

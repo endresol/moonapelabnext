@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useWeb3Context } from "../../context";
 import useMoonApeMutantContract from '../../hooks/useMoonApeMutantContract';
 import useMADExchangeContract from '../../hooks/useMADExchangeContract';
 import { NftList } from './NftList';
+import MadExContext from '../../context/MadExContext';
+
 
 interface Action {
   label: string; // Label for the action
@@ -15,9 +17,12 @@ export const SellMutants: React.FC = () => {
   const moonPetsContract = useMoonApeMutantContract();
   const madExchangeContract = useMADExchangeContract();
 
+  const madExCtx = useContext(MadExContext);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [myMutants, setMyMutants] = useState<number[]>([]);
-
+  const [mutantSaleOpen, setMutantSaleOpen] = useState<boolean>(false);
+  const [madBalance, setMadBalance] = useState<number>(0);
   
   const handleMutantSale = (nfts: number[]) => {
     console.log("sell mutants", nfts);
@@ -34,6 +39,11 @@ export const SellMutants: React.FC = () => {
 
     const getMutants = async () => {
       try {
+        const isOpen = await madExchangeContract.mutantSalesStatus();
+        setMutantSaleOpen(isOpen);
+        
+        setMadBalance(madExCtx.madBalance);
+
         const userMutants = [];
         const totalUserMutants = await moonPetsContract.balanceOf(address);
         console.log("user got mutants:", totalUserMutants.toNumber());
@@ -56,7 +66,7 @@ export const SellMutants: React.FC = () => {
       getMutants().then(() => {setIsLoading(false)});
     }
 
-  },[address, moonPetsContract])
+  },[address, moonPetsContract, madExchangeContract])
   return (
     <>
     <h3 className="text-2xl">Sell mutants</h3>

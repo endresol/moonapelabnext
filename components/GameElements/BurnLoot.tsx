@@ -110,12 +110,13 @@ export const BurnLoot: React.FC = () => {
       {isLoading && <div>Loading</div>}
       {!isLoading && (
       <>
-      <div className="mt-10 mb-10">
-        <h2 className="text-2xl">Burn Loot</h2>
-        <p>
-          This is the last use of the loot
+      <div className="my-10">
+        <h2 className="text-2xl py-5">Burn Loot</h2>
+        <p className="pb-4">
+          This is the last use of loot. You can burn your loot and get $MAD in return. 
+          The amount of $MAD you get depends on the type of loot you burn. The more rare the loot, the more $MAD you get. When the Mad Exchange runs out of $MAD, it will be closed.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+        <div className="grid pb-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {myLoot && myLoot.map((loot) => (
           <div key={loot} className={`rounded-xl overflow-hidden shadow-lg border-4 ${lootToBurn.includes(loot) ? ("border-white") : ("border-gray-400")}`}
           onClick={() => handleToggleLootSelect(loot)}>
@@ -125,7 +126,7 @@ export const BurnLoot: React.FC = () => {
               { getLootMADexchangeFromIndex(loot)} $MAD
             </div>
             </div>
-            <div className="font-bold text-l mb-2 capitalize ">{getLootTypeNameFromIndex(loot)} Moon Loot</div>
+            <div className="font-bold text-l m-2 capitalize ">{getLootTypeNameFromIndex(loot)} Moon Loot</div>
 
           </div>
         ))}
