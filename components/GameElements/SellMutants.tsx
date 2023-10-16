@@ -66,7 +66,7 @@ export const SellMutants: React.FC = () => {
       getMutants().then(() => {setIsLoading(false)});
     }
 
-  },[address, moonPetsContract, madExchangeContract])
+  },[address, moonPetsContract, madExchangeContract, madExCtx])
   return (
     <>
     <h3 className="text-2xl">Sell mutants</h3>

@@ -127,7 +127,6 @@ export const BurnLoot: React.FC = () => {
             </div>
             </div>
             <div className="font-bold text-l m-2 capitalize ">{getLootTypeNameFromIndex(loot)} Moon Loot</div>
-
           </div>
         ))}
         </div>
