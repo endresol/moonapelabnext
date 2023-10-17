@@ -27,6 +27,7 @@ export const UnstakeMoonPass: React.FC = () => {
     
     const transaction = await taxStakingContract.unstake721(process.env.NEXT_PUBLIC_PASS_CONTRACT, myStakedMoonPasses);
     console.log("UNSTAKE ALL MoonPasses transaction", transaction);
+    toast.info("Unstaking MoonPasses");
     await transaction.wait();
     console.log("DONE", transaction);    
     

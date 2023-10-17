@@ -15,17 +15,18 @@ This is mostly for internal use. A list of things that should be done with the M
 - ~~Move maltar buying code to server~~
 - Better popups
 - Show trais and ranking on OG
-- mad exchange check contract MAD
+- mad exchange check contract for available MAD
 - ~~Remove Prisma~~
-- Add Prisma?
+- Add Prisma? OR
 - Find and implement other ORM
 - ~~Mutants card~~
 - Change RoundedBox width on smaller devices
 - test and sechedule ape_owners script
 - Rewrite ape_owners to read events
 - ~~Unstaking of Treasuries and Passes has gone~~
+- better toast for transactions.
 
-- Rewrite mutant contract or workaround
+- Rewrite mutant contract or workaround??? Soft staking?
 
 ## Project ToDo
 
