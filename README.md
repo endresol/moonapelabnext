@@ -7,7 +7,7 @@ This is mostly for internal use. A list of things that should be done with the M
 - ~~Fix environment variables for api~~ Update also prod
 - ~~Fix unstaking loot and pets~~
 - ~~Validate transactions~~
-- Maltar total tickets sold.
+- ~~Maltar total tickets sold.~~
 - ~~Maltar draw system~~
 - ~~Automatic draw (server only)~~
 - Better cards
@@ -19,11 +19,11 @@ This is mostly for internal use. A list of things that should be done with the M
 - ~~Remove Prisma~~
 - Add Prisma?
 - Find and implement other ORM
-- Mutants card
+- ~~Mutants card~~
 - Change RoundedBox width on smaller devices
 - test and sechedule ape_owners script
 - Rewrite ape_owners to read events
-- Unstaking of Treasuries and Passes has gone
+- ~~Unstaking of Treasuries and Passes has gone~~
 
 - Rewrite mutant contract or workaround
 

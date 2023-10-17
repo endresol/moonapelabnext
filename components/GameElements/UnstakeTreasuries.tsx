@@ -5,6 +5,7 @@ import { useWeb3Context } from "../../context";
 import { extractIntegers } from '../../helpers/bignum';
 import useTaxStakingContract from '../../hooks/useTaxStakingContract';
 import { MalButton } from '../Layout';
+import { toast } from 'react-toastify';
 
 
 export const UnstakeTreasuries: React.FC = () => {
@@ -16,6 +17,11 @@ export const UnstakeTreasuries: React.FC = () => {
 
   const unstakeAllTreasuriesHandler = async () => {
     console.log("UNSTAKE ALL treasuries", myStakedTreasuries);
+    if (myStakedTreasuries.length <= 0) {
+      console.log("no treasuries staked");
+      toast.error("No treasuries staked");
+      return;
+    }
     
     const transaction = await taxStakingContract.unstake721(process.env.NEXT_PUBLIC_TREASURIES_CONTRACT, myStakedTreasuries);
     console.log("UNSTAKE ALL Treasuries transaction", transaction);

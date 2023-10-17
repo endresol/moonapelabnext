@@ -6,6 +6,7 @@ import { extractIntegers } from '../../helpers/bignum';
 import useTaxStakingContract from '../../hooks/useTaxStakingContract';
 import { MalButton } from '../Layout';
 import { getPassName, getPassDiscount } from "./../../helpers";
+import { toast } from 'react-toastify';
 
 
 export const UnstakeMoonPass: React.FC = () => {
@@ -18,6 +19,11 @@ export const UnstakeMoonPass: React.FC = () => {
 
   const unstakeAllMoonPassesHandler = async () => {
     console.log("UNSTAKE ALL MoonPasses", myStakedMoonPasses);
+    if (myStakedMoonPasses.length <= 0) { 
+      console.log("no MoonPasses staked");
+      toast.error("No MoonPasses staked");
+      return;
+    }
     
     const transaction = await taxStakingContract.unstake721(process.env.NEXT_PUBLIC_PASS_CONTRACT, myStakedMoonPasses);
     console.log("UNSTAKE ALL MoonPasses transaction", transaction);
