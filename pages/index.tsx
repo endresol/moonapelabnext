@@ -2,18 +2,18 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { GameMap2 } from "../components";
 
-const Home: NextPage = () => {  
+const Home: NextPage = () => {
   return (
-    <div className="">
+    <div className=''>
       <Head>
         <title>Moon Ape Lab</title>
-        <link rel="icon" href="favicon.png" />
+        <link rel='icon' href='favicon.png' />
       </Head>
-      <main className="grid place-items-center">
+      <main className='grid place-items-center'>
         <GameMap2 />
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default Home;
