@@ -82,6 +82,7 @@ export function NavBar() {
               height='35'
               width='125'
               alt='WalletGuard Partner'
+              loading='lazy'
             />
           </a>
           <Web3Button />
