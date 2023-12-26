@@ -75,12 +75,12 @@ export function NavBar() {
           <a
             href='https://www.walletguard.app/'
             target='_blank'
-            className='mr-3'
+            className='mr-4'
           >
             <Image
-              src='/wallet-guard-logo.png'
-              height='35'
-              width='125'
+              src={"/wallet-guard-logo.png"}
+              height={35}
+              width={125}
               alt='WalletGuard Partner'
               loading='lazy'
             />
