@@ -27,7 +27,10 @@ function myApp({ Component, pageProps }: AppProps) {
         }
       `}</style>
       {process.env.NEXT_PUBLIC_NETWORK_ID !== "1" && (
-        <div className='h-6 bg-red-500 text-center'> TESTNET </div>
+        <div className='h-6 bg-red-500 text-center'>
+          {" "}
+          {process.env.NEXT_PUBLIC_NETWORK_NAME}{" "}
+        </div>
       )}
 
       <Web3ContextProvider>

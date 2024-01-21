@@ -4,6 +4,7 @@ export { TaxStaking } from "./TaxStaking";
 export { NftList } from "./NftList";
 export { StakingS1S2 } from "./StakingS1S2";
 export { MadExchange } from "./MadExchange";
+export { MadExchangeClosed } from "./MadExchangeClosed";
 export { NFTcard } from "./NFTcard";
 export { ApeCard } from "./ApeCard";
 export { BurnPets } from "./BurnPets";
