@@ -20,7 +20,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const result = await excuteQuery({
       query: {
-        sql: "SELECT nft_id FROM nfts_apenft WHERE owner = ?",
+        sql: "SELECT nft_id FROM nfts_apenft WHERE address = ?",
         rowsAsArray: true,
       },
       values: [req.query.address],

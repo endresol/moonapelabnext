@@ -7,7 +7,7 @@ async function handler(req, res) {
   try {
     console.log("req nom", req.body);
     const result = await excuteQuery({
-      query: "SELECT owner FROM nfts_apenft limit 1",
+      query: "SELECT address FROM nfts_apenft limit 1",
       values: [],
     });
     console.log("ttt", result);

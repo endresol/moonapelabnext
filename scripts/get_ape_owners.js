@@ -23,10 +23,10 @@ async function getApeOwner(contract, apeId) {
       [apeId]
     );
     if (rows.length > 0 && rows[0].owner !== owner) {
-      await pool.execute("UPDATE nfts_apenft SET owner = ? WHERE nft_id = ?", [
-        owner,
-        apeId,
-      ]);
+      await pool.execute(
+        "UPDATE nfts_apenft SET address = ? WHERE nft_id = ?",
+        [owner, apeId]
+      );
     }
   } catch (error) {
     console.error(error);
