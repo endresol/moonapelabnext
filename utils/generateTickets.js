@@ -13,9 +13,7 @@ async function transferPurchasesToTickets() {
   });
 
   try {
-    const [rows] = await connection.execute(
-      "SELECT * FROM mal_raffle_purchase"
-    );
+    const [rows] = await connection.execute("SELECT * FROM raffle_tickets");
     console.log("Rows:", rows.length);
 
     for (const row of rows) {
