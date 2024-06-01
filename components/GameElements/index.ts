@@ -16,5 +16,6 @@ export { UnstakePets } from "./UnstakePets";
 export { UnstakeTreasuries } from "./UnstakeTreasuries";
 export { UnstakeMoonPass } from "./UnstakeMoonPass";
 export { TicketBooth } from "./TicketBooth";
+export { TicketBoothV2 } from "./TicketBoothV2";
 export { TicketBoothClosed } from "./TicketBoothClosed";
 export { MaltarWinners } from "./MaltarWinners";

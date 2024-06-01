@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 // import { PrismaClient } from "@prisma/client";
-import excuteQuery from "../../../helpers/db";
+import executeQuery from "../../../helpers/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log("getting data:", req.query.address);
@@ -18,9 +18,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     //   },
     // });
 
-    const result = await excuteQuery({
+    const result = await executeQuery({
       query:
-        "select sum(quantity) as mytickets from mal_raffle_purchase where address = ?",
+        "select sum(quantity) as mytickets from raffle_tickets where address = ?",
       values: [req.query.address],
     });
 

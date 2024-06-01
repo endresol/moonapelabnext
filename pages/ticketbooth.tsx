@@ -1,30 +1,29 @@
 import { NextPage } from "next";
-import { ThinRoundedBox as RoundedBox, MALheader} from "../components/Layout";
-// import { TicketBooth } from "../components/GameElements";
-import { TicketBoothClosed } from "../components/GameElements";
+import { RoundedBox as RoundedBox, MALheader } from "../components/Layout";
 
-// export async function getServerSideProps() {
-//   // Determine if the booth should be open or closed based on server time
-//   const isBoothOpen = process.env.TICKETBOOTH_OPEN;
-//   console.log("isBoothOpen", isBoothOpen);
-  
-//   return {
-//     props: { isBoothOpen },
-//   };
-// }
+import { TicketBoothV2, TicketBoothClosed } from "../components/GameElements";
 
-// interface Props {
-//   isBoothOpen: boolean;
-// }
+export async function getServerSideProps() {
+  const isBoothOpen = process.env.TICKETBOOTH_OPEN;
+
+  return {
+    props: { isBoothOpen },
+  };
+}
+
+interface Props {
+  isBoothOpen: boolean;
+}
 
 const TicketBoothPage: NextPage = () => {
+  const isBoothOpen = true; // Add a placeholder value for isBoothOpen
+
   return (
     <RoundedBox>
-      <MALheader headline="Ticket Booth" /> 
-      {/* {isBoothOpen ? <TicketBooth /> : <TicketBoothClosed />} */}
-      <TicketBoothClosed />
+      <MALheader headline='Ticket Booth' />
+      {isBoothOpen ? <TicketBoothV2 /> : <TicketBoothClosed />}
     </RoundedBox>
-  )
-}
+  );
+};
 
 export default TicketBoothPage;

@@ -1,15 +1,22 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
-export function MALheader({headline}) {
+export function MALheader({ headline }) {
   return (
     <>
-      <div className="flex justify-center">
-        <Image src="/MAL_LOGO.svg" width="75" height="75" alt={"MoonApeLab logo"} />
+      <div className='flex justify-center'>
+        <Image
+          src='/MAL_LOGO.svg'
+          width='75'
+          height='75'
+          alt={"MoonApeLab logo"}
+        />
       </div>
-      <div className="flex justify-center">
-        <h2 className="b-2 mt-0 text-5xl font-medium leading-tight text-primary uppercase">{headline}</h2>
+      <div className='flex justify-center'>
+        <h2 className='b-2 mt-4  mb-4 text-5xl font-medium leading-tight text-primary uppercase'>
+          {headline}
+        </h2>
       </div>
     </>
-  )
+  );
 }

@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { ethers, BigNumber } from "ethers";
-import excuteQuery from "../../../helpers/db";
+import executeQuery from "../../../helpers/db";
 
 import ABI from "../../../abis/MALv1-ERC20-ABI.json";
+import { exec } from "child_process";
 
 const ticketPrice = 5000;
 
@@ -68,31 +69,41 @@ export default async function handler(
     transaction,
   }: { address: string; tickets: number; transaction: string } = body;
 
-  console.log(
-    "Checking Ethereum transaction input:",
-    transaction,
-    address,
-    tickets
-  );
+  // console.log(
+  //   "Checking Ethereum transaction input:",
+  //   transaction,
+  //   address,
+  //   tickets
+  // );
 
-  const isTransactionValid = await checkEthereumTransaction(
-    transaction,
-    tickets,
-    ticketPrice
-  );
+  // const isTransactionValid = await checkEthereumTransaction(
+  //   transaction,
+  //   tickets,
+  //   ticketPrice
+  // );
 
-  if (!isTransactionValid) {
-    return res.status(400).json({ message: "Invalid Ethereum transaction" });
-  }
+  // if (!isTransactionValid) {
+  //   return res.status(400).json({ message: "Invalid Ethereum transaction" });
+  // }
 
   try {
-    const insertTransaction = await excuteQuery({
-      query:
-        "INSERT INTO mal_raffle_purchase SET address = ?, quantity = ?, raffle_id = ?, transaction = ?",
-      values: [address, tickets, 1, transaction],
+    const spentMAL = await executeQuery({
+      query: "SELECT SUM(amount) FROM mal_spending WHERE address = ?",
+      values: [address],
     });
 
+    const insertTransaction = await executeQuery({
+      query:
+        "INSERT INTO raffle_tickets SET address = ?, quantity = ?, raffle_id = ?, transaction = ?",
+      values: [address, tickets, 2, transaction],
+    });
     console.log("Inserted transaction....:", insertTransaction);
+
+    const insertSpendingTransaction = await executeQuery({
+      query: "INSERT INTO mal_spending SET address = ?, quantity = ?",
+      values: [address, tickets * ticketPrice],
+    });
+    console.log("Inserted spending---", insertSpendingTransaction);
 
     return res.status(200).json({
       message: "Transaction successfully submitted",

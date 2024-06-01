@@ -1,10 +1,9 @@
-import excuteQuery from "../../helpers/db";
+import executeQuery from "../../helpers/db";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const winners = await excuteQuery({
-      query:
-        "SELECT * FROM mal_raffle_prizes where winner <> '' order by id desc",
+    const winners = await executeQuery({
+      query: "SELECT * FROM raffle_prizes where winner <> '' order by id desc",
       values: [],
     });
 

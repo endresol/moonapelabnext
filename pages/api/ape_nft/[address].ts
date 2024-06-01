@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 // import { PrismaClient } from "@prisma/client";
-import excuteQuery from "../../../helpers/db";
+import executeQuery from "../../../helpers/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log("getting data:", req.query.address);
@@ -18,7 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     //   },
     // });
 
-    const result = await excuteQuery({
+    const result = await executeQuery({
       query: {
         sql: "SELECT nft_id FROM nfts_apenft WHERE address = ?",
         rowsAsArray: true,

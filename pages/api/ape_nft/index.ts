@@ -1,12 +1,12 @@
 // import { PrismaClient } from '@prisma/client';
 // const prisma = new PrismaClient();
 
-import excuteQuery from "../../../helpers/db";
+import executeQuery from "../../../helpers/db";
 
 async function handler(req, res) {
   try {
     console.log("req nom", req.body);
-    const result = await excuteQuery({
+    const result = await executeQuery({
       query: "SELECT address FROM nfts_apenft limit 1",
       values: [],
     });

@@ -1,7 +1,7 @@
 // db.js
 import mysql from "mysql2/promise";
 
-export default async function excuteQuery({ query, values }) {
+export default async function executeQuery({ query, values }) {
   const db = await mysql.createConnection({
     host: process.env.MYSQL_HOST,
     port: parseInt(process.env.MYSQL_PORT),
