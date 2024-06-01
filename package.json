@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "startprod": "next start -p 3004",
     "lint": "next lint",
     "update-owner": "node ./scripts/get_ape_owner.js"
   },
