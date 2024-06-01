@@ -14,8 +14,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       values: [req.query.address],
     });
 
-    console.log("ttt", result);
-
     res
       .status(200)
       .json({ mytickets: result[0].mytickets ? result[0].mytickets : 0 });
