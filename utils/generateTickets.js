@@ -21,7 +21,7 @@ async function transferPurchasesToTickets() {
       for (let i = 1; i <= numTickets; i++) {
         console.log("Inserting ticket for address:", row.address);
         await connection.execute(
-          "INSERT INTO mal_raffle_tickets (address) VALUES (?)",
+          "INSERT INTO raffle_lottery_tickets (address) VALUES (?)",
           [row.address]
         );
       }

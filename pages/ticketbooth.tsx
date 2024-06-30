@@ -1,29 +1,40 @@
-import { NextPage } from "next";
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import { RoundedBox as RoundedBox, MALheader } from "../components/Layout";
 
 import { TicketBoothV2, TicketBoothClosed } from "../components/GameElements";
 
-export async function getServerSideProps() {
-  const isBoothOpen = process.env.TICKETBOOTH_OPEN;
+type MaltarMeta = {
+  isOpen: boolean;
+};
 
-  return {
-    props: { isBoothOpen },
-  };
-}
+export const getServerSideProps = (async () => {
+  const now = new Date();
+  const specificTime = new Date(Date.UTC(2024, 6, 1, 0, 0, 0)); // June 30th, 23:00 UTC (note: months are 0-based)
+
+  const isBeforeSpecificTime = now < specificTime;
+
+  const meta: MaltarMeta = { isOpen: isBeforeSpecificTime };
+
+  return { props: { meta } };
+}) satisfies GetServerSideProps<{ meta: MaltarMeta }>;
 
 interface Props {
   isBoothOpen: boolean;
 }
 
-const TicketBoothPage: NextPage = () => {
-  const isBoothOpen = true; // Add a placeholder value for isBoothOpen
-
+function TicketBoothPage({
+  meta,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <RoundedBox>
       <MALheader headline='Ticket Booth' />
-      {isBoothOpen ? <TicketBoothV2 /> : <TicketBoothClosed />}
+      {meta.isOpen ? <TicketBoothV2 /> : <TicketBoothClosed />}
     </RoundedBox>
   );
-};
+}
 
 export default TicketBoothPage;

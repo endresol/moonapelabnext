@@ -35,7 +35,7 @@ async function getTotalNumberOfTicketsFromDatabase() {
 
   try {
     const [rows] = await connection.execute(
-      "SELECT COUNT(*) AS total FROM mal_raffle_tickets"
+      "SELECT COUNT(*) AS total FROM raffle_lottery_ticketskets"
     );
     return rows[0].total;
   } catch (error) {
@@ -51,7 +51,7 @@ async function getWinnerByTicketNumberFromDatabase(ticketNumber) {
 
   try {
     const [rows] = await connection.execute(
-      "SELECT * FROM mal_raffle_tickets WHERE id = ? AND winner = 0",
+      "SELECT * FROM raffle_lottery_tickets WHERE id = ? AND winner = 0",
       [ticketNumber]
     );
     return rows[0];
@@ -100,7 +100,7 @@ async function updateTicketAsWinner(ticketId) {
 
   try {
     await connection.execute(
-      "UPDATE mal_raffle_tickets SET winner = 1 WHERE id = ?",
+      "UPDATE raffle_lottery_tickets SET winner = 1 WHERE id = ?",
       [ticketId]
     );
   } catch (error) {
