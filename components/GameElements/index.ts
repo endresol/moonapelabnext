@@ -20,3 +20,4 @@ export { TicketBoothV2 } from "./TicketBoothV2";
 export { TicketBoothClosed } from "./TicketBoothClosed";
 export { MaltarWinners } from "./MaltarWinners";
 export { MaltarTickets } from "./MaltarTickets";
+export { MaltarLotteryTickets } from "./MaltarLotteryTickets";

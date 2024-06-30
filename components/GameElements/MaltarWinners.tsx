@@ -24,7 +24,7 @@ export const MaltarWinners: React.FC = () => {
       {winners.length === 0 && (
         <p>
           No winners yet - the next raffle of 50 3D Avatars will happen on the
-          1st of July 2024
+          1st of July 2024 around 20:00 UTC
         </p>
       )}
       <ul>
