@@ -33,7 +33,7 @@ export const MaltarWinners: React.FC = () => {
             <span
               className={`${winner.winner === address ? "text-yellow-400" : "text-white"}`}
             >
-              {winner.winner} - Ticket #{winner.ticketId} - Prize {winner.prize}
+              {winner.winner} - Ticket #{winner.ticket} - Prize {winner.prize}
             </span>
           </li>
         ))}
