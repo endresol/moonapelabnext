@@ -27,7 +27,9 @@ function getCurrentDateTimeStrings() {
   const seconds = String(now.getSeconds()).padStart(2, "0");
   const formattedTime = `${hours}:${minutes}:${seconds}`;
 
-  return { formattedDate, formattedTime };
+  const formattedTimestamp = `${formattedDate} ${formattedTime}`;
+
+  return { formattedTimestamp };
 }
 
 async function getTotalNumberOfTicketsFromDatabase() {
@@ -35,7 +37,7 @@ async function getTotalNumberOfTicketsFromDatabase() {
 
   try {
     const [rows] = await connection.execute(
-      "SELECT COUNT(*) AS total FROM raffle_lottery_ticketskets"
+      "SELECT COUNT(*) AS total FROM raffle_lottery_tickets"
     );
     return rows[0].total;
   } catch (error) {
@@ -51,7 +53,7 @@ async function getWinnerByTicketNumberFromDatabase(ticketNumber) {
 
   try {
     const [rows] = await connection.execute(
-      "SELECT * FROM raffle_lottery_tickets WHERE id = ? AND winner = 0",
+      "SELECT * FROM raffle_lottery_tickets WHERE id = ? AND winner is null",
       [ticketNumber]
     );
     return rows[0];
@@ -63,14 +65,15 @@ async function getWinnerByTicketNumberFromDatabase(ticketNumber) {
   }
 }
 
-async function getPendingPrizesFromDatabase(currentDate, currentTime) {
+async function getPendingPrizesFromDatabase(currentTimestamp) {
   const connection = await getConnection();
 
   try {
     const [rows] = await connection.execute(
-      "SELECT * FROM mal_raffle_prizes WHERE winner like '' AND date <= ? AND time <= ?",
-      [currentDate, currentTime]
+      "SELECT * FROM raffle_prizes WHERE winner is null AND timestamp <= ? ",
+      [currentTimestamp]
     );
+
     return rows;
   } catch (error) {
     console.error("Error fetching pending prizes:", error);
@@ -85,7 +88,7 @@ async function updateDrawScheduleWithWinner(prizeId, winner, ticket) {
 
   try {
     await connection.execute(
-      "UPDATE mal_raffle_prizes SET winner = ?, ticketId = ? WHERE id = ?",
+      "UPDATE raffle_prizes SET winner = ?, ticket = ? WHERE id = ?",
       [winner, ticket, prizeId]
     );
   } catch (error) {
@@ -110,6 +113,21 @@ async function updateTicketAsWinner(ticketId) {
   }
 }
 
+async function updateWalletAsWinner(address) {
+  const connection = await getConnection();
+
+  try {
+    await connection.execute(
+      "UPDATE raffle_lottery_tickets SET winner = 1 WHERE address = ?",
+      [address]
+    );
+  } catch (error) {
+    console.error("Error updating address as winner:", error);
+  } finally {
+    connection.end();
+  }
+}
+
 async function findWinner(totalNumberOfTickets, minTicketNumber) {
   const randomOffset = Math.floor(Math.random() * totalNumberOfTickets);
   const winningTicketNumber = minTicketNumber + randomOffset;
@@ -128,14 +146,11 @@ async function findWinner(totalNumberOfTickets, minTicketNumber) {
 }
 
 async function drawWinners() {
-  const { formattedDate, formattedTime } = getCurrentDateTimeStrings();
+  const { formattedTimestamp } = getCurrentDateTimeStrings();
 
-  console.log("Current date:", formattedDate, "Current time:", formattedTime);
+  console.log("Current timestamp:", formattedTimestamp);
 
-  const pendingPrizes = await getPendingPrizesFromDatabase(
-    formattedDate,
-    formattedTime
-  );
+  const pendingPrizes = await getPendingPrizesFromDatabase(formattedTimestamp);
 
   console.log("Pending prizes:", pendingPrizes);
 
@@ -143,7 +158,7 @@ async function drawWinners() {
 
   for (const prize of pendingPrizes) {
     const totalNumberOfTickets = await getTotalNumberOfTicketsFromDatabase();
-    const minTicketNumber = 10000;
+    const minTicketNumber = 1;
 
     // const randomOffset = Math.floor(Math.random() * totalNumberOfTickets);
     // const winningTicketNumber = minTicketNumber + randomOffset;
@@ -174,6 +189,7 @@ async function drawWinners() {
         winningTicketNumber
       );
       await updateTicketAsWinner(winner.id);
+      await updateWalletAsWinner(winner.address);
     }
   }
 
