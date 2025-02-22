@@ -8,11 +8,12 @@ const StakingPage: NextPage = () => {
     <RoundedBox>
       <MALheader headline="Moon Staking" />
       <div className="text-center">
-      To make sure you do not lose any MAL v1 or v2 please CLAIM before you do any unstaking
+        MAL coins v1 or v2 no longer have any value the the Moon Ape ecosystem.
+        There for there is no need to claim any MAL coins before unstaking.
       </div>
       <StakingS1S2 />
     </RoundedBox>
-  )
-}
+  );
+};
 
 export default StakingPage;
