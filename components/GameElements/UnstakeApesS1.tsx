@@ -82,15 +82,15 @@ export const UnstakeApesS1: React.FC = () => {
     console.log(transaction);
   };
 
-  const handleClaimAction = async () => {
-    console.log("start claim");
-    const transaction = await moonStakingContractS2.updateAccumulatedAmount(
-      address
-    );
-    console.log("transaction started:", transaction);
-    await transaction.wait();
-    console.log(transaction);
-  };
+  // const handleClaimAction = async () => {
+  //   console.log("start claim");
+  //   const transaction = await moonStakingContractS2.updateAccumulatedAmount(
+  //     address
+  //   );
+  //   console.log("transaction started:", transaction);
+  //   await transaction.wait();
+  //   console.log(transaction);
+  // };
 
   const isAnyItemSelected = apesToUnstake.length > 0;
 
